@@ -1,0 +1,3 @@
+// travel/servicing/relationships.c4
+// Legacy folder retained during migration. Servicing relationships now live
+// under travel/self-servicing and travel/agent-servicing.

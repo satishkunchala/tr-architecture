@@ -1,0 +1,15 @@
+// travel/self-servicing/relationships.c4
+
+model {
+  amex.travel.selfServicing.pbss.platform .restApi amex.travel.backendPlatforms.tlr.repository 'Retrieve trip details' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.selfServicing.pbss.platform .restApi amex.travel.backendPlatforms.tlsProfiles.repository 'Retrieve traveler profile' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.selfServicing.pbss.platform .restApi amex.travel.communications.pbcc.platform 'Request customer communication' {
+    technology 'REST / JSON'
+  }
+}

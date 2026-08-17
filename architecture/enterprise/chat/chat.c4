@@ -1,0 +1,10 @@
+// enterprise/chat/chat.c4
+
+model {
+  extend amex.chat.platform {
+    agentAssistApi = enterpriseComponent 'Agent Assist API' {
+      #enterprise, #agent-facing
+      technology 'REST / JSON'
+    }
+  }
+}

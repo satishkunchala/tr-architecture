@@ -1,0 +1,11 @@
+// travel/marketing-commercial/relationships.c4
+
+model {
+  amex.travel.marketingCommercial.maps .restApi amex.travel.customerExperience.inspiration.experience 'Provide offers and programs' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.marketingCommercial.cms .restApi amex.travel.customerExperience.preBooking.homePage 'Provide commercial content' {
+    technology 'REST / JSON'
+  }
+}

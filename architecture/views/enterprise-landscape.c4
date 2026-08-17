@@ -1,0 +1,10 @@
+// views/enterprise-landscape.c4
+// Level 0: show major enterprise domains only. No Travel applications here.
+
+views {
+  view enterprise_landscape of amex {
+    title 'Enterprise Landscape'
+    include amex.*
+    autoLayout TopBottom 140 140
+  }
+}

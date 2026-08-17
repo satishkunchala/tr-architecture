@@ -1,0 +1,32 @@
+// travel/back-office/systems.c4
+
+model {
+  extend amex.travel.backOffice {
+    platform = travelSystem 'Reconciliation Platform' {
+      #travel, #back-office, #tier2
+      metadata {
+        owner 'Travel Back Office'
+        criticality 'Tier-2'
+        lifecycle 'Strategic'
+      }
+    }
+
+    refundService = travelSystem 'Refunds and Cancellations Service' {
+      #travel, #back-office
+      metadata {
+        owner 'Travel Back Office'
+        criticality 'Tier-2'
+        lifecycle 'Strategic'
+      }
+    }
+
+    reporting = travelSystem 'Travel Reporting Application' {
+      #travel, #back-office, #data
+      metadata {
+        owner 'Travel Analytics'
+        criticality 'Tier-3'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+}

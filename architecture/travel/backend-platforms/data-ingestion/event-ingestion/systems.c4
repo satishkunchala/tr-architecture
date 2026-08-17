@@ -1,0 +1,15 @@
+// travel/backend-platforms/data-ingestion/event-ingestion/systems.c4
+
+model {
+  extend amex.travel.backendPlatforms.dataIngestion.eventIngestion {
+    platform = travelSystem 'Event Ingestion' {
+      #travel, #data, #event
+      technology 'Event ingestion'
+      metadata {
+        owner 'Data Ingestion'
+        productArea 'Event Ingestion'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+}

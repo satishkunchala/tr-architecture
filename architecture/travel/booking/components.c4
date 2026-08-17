@@ -1,0 +1,62 @@
+// travel/booking/components.c4
+// Component detail is scoped to Booking Platform. Do not reference unrelated
+// enterprise internals here; use context or flow views for cross-boundary views.
+
+model {
+  extend amex.travel.backendPlatforms.booking.platform {
+    gateway = apiGateway 'Booking API Gateway' {
+      #travel, #customer-facing
+      technology 'API Gateway'
+    }
+
+    loadBalancer = loadBalancer 'Booking Load Balancer' {
+      #travel
+      technology 'L7 load balancer'
+    }
+
+    api = api 'Booking API' {
+      #travel, #sync, #customer-facing
+      technology 'REST / JSON'
+    }
+
+    orchestrator = service 'Booking Orchestrator' {
+      #travel
+      technology 'Java / Spring'
+    }
+
+    reservationService = microservice 'Reservation Service' {
+      #travel
+      technology 'Java / Spring'
+    }
+
+    partnerAdapter = partnerAdapter 'Booking Partner Adapter' {
+      #travel, #partner-integration
+      technology 'REST / JSON adapter'
+    }
+
+    db = database 'Booking Database' {
+      #travel, #pii, #pci
+      technology 'Relational database'
+    }
+
+    cache = cache 'Booking Cache' {
+      #travel
+      technology 'Redis-compatible cache'
+    }
+
+    eventProducer = eventProducer 'Booking Event Producer' {
+      #travel, #async
+      technology 'Kafka producer'
+    }
+
+    eventConsumer = eventConsumer 'Booking Event Consumer' {
+      #travel, #async
+      technology 'Kafka consumer'
+    }
+
+    scheduler = scheduler 'Booking Scheduler' {
+      #travel, #batch
+      technology 'Scheduler'
+    }
+  }
+}

@@ -1,0 +1,141 @@
+// external/partners/iseatz-lxp.c4
+// iSeatz LXP internals are modeled only at integration-relevant granularity.
+// This is enough to show control handoff, Amex connectors, supplier routing,
+// events, order data, and reporting without modeling every partner microservice.
+
+model {
+  extend external.partners.iseatz {
+    frontEnd = partnerApplication 'LXP Front End' {
+      #partner, #customer-facing
+      technology 'Browser / mobile / API consumer'
+    }
+
+    resultsPage = partnerApplication 'iSeatz Results Page' {
+      #partner, #customer-facing
+      description 'Partner-owned search results page in the iSeatz LXP booking journey.'
+    }
+
+    detailsPage = partnerApplication 'iSeatz Details Page' {
+      #partner, #customer-facing
+      description 'Partner-owned details page for selected travel product.'
+    }
+
+    checkoutPage = partnerApplication 'iSeatz Checkout Page' {
+      #partner, #customer-facing, #pci
+      description 'Partner-owned checkout page; invokes Amex profile, crypto, MOR, payment, and related enterprise services.'
+    }
+
+    confirmationPage = partnerApplication 'iSeatz Confirmation Page' {
+      #partner, #customer-facing
+      description 'Partner-owned booking confirmation page.'
+    }
+
+    bookingEventPublisher = partnerService 'Booking Event Publisher' {
+      #partner, #event
+      technology 'Event publisher'
+    }
+
+    edge = partnerService 'LXP Edge' {
+      #partner, #security
+      technology 'AWS WAF / Cloudflare'
+    }
+
+    uiLayer = partnerService 'LXP UI Layer' {
+      #partner
+      technology 'CMS / single page application storage'
+    }
+
+    gibraltar = partnerApiGateway 'Gibraltar API Gateway' {
+      #partner
+      technology 'API Gateway'
+    }
+
+    orderbahn = partnerService 'Orderbahn' {
+      #partner, #tier1
+      description 'iSeatz order and booking orchestration service used for shop, book, retrieve, and cancel operations.'
+    }
+
+    orderManagement = partnerService 'Order Management' {
+      #partner
+    }
+
+    supplierConnectors = partnerService 'Supplier Connectors' {
+      #partner
+      description 'iSeatz supplier connector layer. Routes US hotel/car to Expedia, international hotel to Agoda, international car to CarTrawler, and air for all markets to Spotnana.'
+    }
+
+    amexConnectors = partnerService 'Amex Connectors' {
+      #partner
+      description 'iSeatz connector layer to American Express services such as authentication, payments, points, profile, maps, notifications, KMS, and insurance.'
+    }
+
+    clientConnections = partnerService 'Client Connections' {
+      #partner
+      technology 'Points bank connector / client connector / connector telemetry'
+    }
+
+    reportingLayer = partnerService 'Reporting Layer' {
+      #partner, #data
+      technology 'ETL and reporting services'
+    }
+
+    eventsBus = partnerQueue 'LXP Events Bus' {
+      #partner, #event
+      technology 'Event bus'
+    }
+
+    internalEventNotifications = partnerQueue 'Internal Event Notifications' {
+      #partner, #event
+      technology 'Queue'
+    }
+
+    clientEventSinks = partnerQueue 'Client Event Sinks' {
+      #partner, #event
+      technology 'Webhooks / SQS / SNS topic subscription'
+    }
+
+    authDb = partnerDatabase 'Auth DB' {
+      #partner
+    }
+
+    ordersDb = partnerDatabase 'Orders DB' {
+      #partner, #pii
+    }
+
+    bookingsDb = partnerDatabase 'Bookings DB' {
+      #partner, #pii, #pci
+    }
+
+    reportingDb = partnerDatabase 'Reporting DB' {
+      #partner, #data
+    }
+
+    mapsDb = partnerDatabase 'Maps DB' {
+      #partner
+    }
+
+    tokenCache = partnerCache 'Token Cache' {
+      #partner, #security
+    }
+
+    profileCache = partnerCache 'Profile Cache' {
+      #partner, #pii
+    }
+
+    airConnector = partnerConnector 'Air Connector' {
+      #partner
+    }
+
+    hotelConnector = partnerConnector 'Hotel Connector' {
+      #partner
+    }
+
+    carConnector = partnerConnector 'Car Connector' {
+      #partner
+    }
+
+    activitiesConnector = partnerConnector 'Activities Connector' {
+      #partner
+    }
+  }
+}

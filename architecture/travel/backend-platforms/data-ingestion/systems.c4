@@ -1,0 +1,13 @@
+// travel/backend-platforms/data-ingestion/systems.c4
+
+model {
+  extend amex.travel.backendPlatforms.dataIngestion {
+    eventIngestion = capability 'Event Ingestion' {
+      #travel, #data
+    }
+
+    tripsIngestion = capability 'Trips Ingestion' {
+      #travel, #data
+    }
+  }
+}

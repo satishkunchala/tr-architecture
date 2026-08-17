@@ -1,0 +1,48 @@
+// external/vendors/vendors.c4
+// Technology vendors are not travel business partners. They use the slate gray
+// family and are grouped by technology responsibility.
+
+model {
+  extend external {
+    vendors = domain 'Technology Vendors' {
+      #vendor, #external
+      description 'SaaS and technology vendors used by Travel and enterprise platforms.'
+
+      dynatrace = monitoringPlatform 'Dynatrace' {
+        #vendor, #observability
+        technology 'APM / Observability'
+      }
+
+      tealeaf = monitoringPlatform 'Tealeaf' {
+        #vendor, #observability
+        technology 'Digital experience analytics'
+      }
+
+      oag = technologyVendor 'OAG' {
+        #vendor, #external
+        description 'Third-party flight status and flight event data provider.'
+        technology 'Flight event provider'
+      }
+
+      splunk = loggingPlatform 'Splunk' {
+        #vendor, #logging
+        technology 'Log analytics'
+      }
+
+      akamai = technologyVendor 'Akamai' {
+        #vendor, #security, #infrastructure
+        technology 'CDN / WAF'
+      }
+
+      cloudProviders = technologyVendor 'Cloud Providers' {
+        #vendor, #infrastructure
+        technology 'Cloud infrastructure'
+      }
+
+      securityPlatforms = technologyVendor 'Security Platforms' {
+        #vendor, #security
+        technology 'Security tooling'
+      }
+    }
+  }
+}

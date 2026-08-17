@@ -1,0 +1,29 @@
+// travel/agent-servicing/systems.c4
+
+model {
+  extend amex.travel.agentServicing.agentTools {
+    opus = travelApplication 'OPUS' {
+      #travel, #agent-facing, #tier1
+      metadata {
+        owner 'Agent Servicing'
+        lifecycle 'Strategic'
+      }
+    }
+
+    tca = travelApplication 'TCA' {
+      #travel, #agent-facing
+      metadata {
+        owner 'Agent Servicing'
+        lifecycle 'Strategic'
+      }
+    }
+
+    pbas = travelApplication 'PBAS' {
+      #travel, #agent-facing
+      metadata {
+        owner 'Agent Servicing'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+}

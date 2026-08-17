@@ -1,0 +1,23 @@
+// travel/back-office/relationships.c4
+
+model {
+  amex.travel.backendPlatforms.booking.platform .batch amex.travel.backOffice.platform 'Send settlement extract' {
+    technology 'Batch file'
+  }
+
+  amex.travel.backOffice.platform .sftp amex.payments.platform 'Reconcile settlement' {
+    technology 'SFTP / encrypted file'
+  }
+
+  amex.travel.backOffice.refundService .restApi amex.payments.platform 'Issue refund' {
+    technology 'REST / JSON / PCI controls'
+  }
+
+  amex.travel.backendPlatforms.dataIngestion.eventIngestion.platform .stream amex.data.kafka 'Consume booking events' {
+    technology 'Kafka'
+  }
+
+  amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform .batch amex.travel.backOffice.reporting 'Publish reporting dataset' {
+    technology 'Batch / object storage'
+  }
+}

@@ -1,0 +1,18 @@
+// travel/booking/systems.c4
+
+model {
+  extend amex.travel.backendPlatforms.booking {
+    platform = travelSystem 'Booking Platform' {
+      #travel, #tier1, #pii, #pci
+      description 'Owns reservation creation, booking orchestration, payment handoff, and booking lifecycle events.'
+      metadata {
+        owner 'Travel Booking'
+        criticality 'Tier-1'
+        dataClassification 'Confidential / PCI'
+        lifecycle 'Strategic'
+        repository 'travel-booking-platform'
+        techStack 'Java, Spring Boot, Kafka, Redis, PostgreSQL'
+      }
+    }
+  }
+}

@@ -1,0 +1,100 @@
+// travel/booking/views.c4
+// Booking-specific views answer app context, component, and flow questions.
+
+views {
+  view travel_booking_context {
+    title 'Travel Booking Context'
+    include amex.travel.customerExperience.preBooking.homePage
+    include amex.travel.backendPlatforms.booking.platform
+    include external.partners.iseatz
+    include external.partners.iseatz.frontEnd
+    include external.partners.iseatz.gibraltar
+    include external.partners.iseatz.orderbahn
+    include external.partners.iseatz.supplierConnectors
+    include external.partners.iseatz.amexConnectors
+    include external.partners.expedia
+    include external.partners.agoda
+    include external.partners.carTrawler
+    include external.partners.spotnana
+    include external.partners.sabre
+    include external.partners.getYourGuide
+    include external.partners.arrivia
+    include external.partners.bookingPal
+    include external.partners.airbnb
+    include amex.dining.resy
+    include amex.apiGateways.ewpB2b
+    include amex.apiGateways.apigeeLegacyB2b
+    include amex.identity.platform
+    include amex.c360.platform
+    include amex.loyalty.platform
+    include amex.payments.platform
+    include amex.data.kafka
+    include external.vendors.dynatrace
+    autoLayout TopBottom 160 120
+  }
+
+  view travel_booking_components of amex.travel.backendPlatforms.booking.platform {
+    title 'Travel Booking Components'
+    include *
+    autoLayout TopBottom 140 110
+  }
+
+  view travel_booking_flow {
+    title 'Travel Booking Flow'
+    include amex.travel.customerExperience.preBooking.homePage
+    include external.partners.iseatz
+    include external.partners.iseatz.frontEnd
+    include external.partners.iseatz.edge
+    include external.partners.iseatz.gibraltar
+    include external.partners.iseatz.orderbahn
+    include external.partners.iseatz.amexConnectors
+    include external.partners.iseatz.airConnector
+    include external.partners.iseatz.hotelConnector
+    include external.partners.iseatz.carConnector
+    include external.partners.expedia
+    include external.partners.agoda
+    include external.partners.carTrawler
+    include external.partners.spotnana
+    include external.partners.sabre
+    include external.partners.arrivia
+    include external.partners.bookingPal
+    include external.partners.airbnb
+    include amex.apiGateways.ewpB2b
+    include amex.apiGateways.apigeeLegacyB2b
+    include amex.identity.platform
+    include amex.c360.platform
+    include amex.payments.platform
+    include amex.travel.backendPlatforms.booking.platform
+    include amex.data.kafka
+    include amex.travel.communications.pbcc.platform
+    include amex.notifications.platform
+    autoLayout TopBottom 160 120
+  }
+
+  view iseatz_lxp_architecture of external.partners.iseatz {
+    title 'iSeatz LXP Architecture'
+    include *
+    autoLayout TopBottom 150 110
+  }
+
+  view iseatz_lxp_to_amex_integrations {
+    title 'iSeatz LXP to Amex Integrations'
+    include external.partners.iseatz.frontEnd
+    include external.partners.iseatz.gibraltar
+    include external.partners.iseatz.orderbahn
+    include external.partners.iseatz.amexConnectors
+    include external.partners.iseatz.mapsDb
+    include external.partners.iseatz.tokenCache
+    include external.partners.iseatz.profileCache
+    include amex.apiGateways.ewpB2b
+    include amex.apiGateways.apigeeLegacyB2b
+    include amex.identity.platform.*
+    include amex.loyalty.platform.*
+    include amex.c360.platform.*
+    include amex.payments.platform.*
+    include amex.security.platform.*
+    include amex.notifications.platform.*
+    include amex.insurance.platform.*
+    autoLayout TopBottom 160 120
+  }
+}

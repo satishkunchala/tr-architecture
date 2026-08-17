@@ -1,0 +1,24 @@
+// views/travel-enterprise-integrations.c4
+// Shows which enterprise platforms Travel consumes. This is not a component
+// diagram; it intentionally collapses internals.
+
+views {
+  view travel_enterprise_dependencies {
+    title 'Travel Enterprise Dependencies'
+    include amex.travel.backendPlatforms.booking.platform
+    include amex.travel.customerExperience.preBooking.homePage
+    include amex.travel.agentServicing.agentTools.opus
+    include amex.travel.communications.pbcc.platform
+    include amex.travel.backOffice.platform
+    include amex.apiGateways.ewpB2b
+    include amex.apiGateways.apigeeLegacyB2b
+    include amex.identity.platform
+    include amex.c360.platform
+    include amex.loyalty.platform
+    include amex.payments.platform
+    include amex.chat.platform
+    include amex.notifications.platform
+    include amex.data.kafka
+    autoLayout TopBottom 160 120
+  }
+}

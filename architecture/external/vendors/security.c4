@@ -1,0 +1,9 @@
+// external/vendors/security.c4
+// Security vendor definitions and relationships can grow here without changing
+// Travel-owned model files.
+
+model {
+  external.vendors.akamai .vendorIntegration external.vendors.securityPlatforms 'Share threat signals' {
+    technology 'Vendor integration'
+  }
+}

@@ -1,0 +1,50 @@
+// travel/domain-context-relationships.c4
+// Coarse-grained context relationships for the Travel domain. Keep these at
+// domain/partner-boundary level so context views remain readable.
+
+model {
+  amex.travel .restApi amex.identity 'Authenticate customer and agent sessions' {
+    technology 'OIDC / SafeKey / federated identity'
+  }
+
+  amex.travel .restApi amex.apiGateways 'Route partner-originated B2B API traffic' {
+    technology 'EWP B2B / Apigee legacy B2B'
+  }
+
+  amex.travel .restApi amex.c360 'Retrieve customer and traveler context' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel .restApi amex.loyalty 'Apply rewards, benefits, credits, and points' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel .restApi amex.payments 'Authorize payments and evaluate merchant of record' {
+    technology 'REST / JSON / PCI controls'
+  }
+
+  amex.travel .restApi amex.insurance 'Quote and service travel insurance' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel .event amex.notifications 'Trigger customer and servicing communications' {
+    technology 'Events / REST orchestration'
+  }
+
+  amex.travel .restApi amex.personalization 'Expose travel status for personalization' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel .restApi amex.security 'Tokenize sensitive data and manage keys' {
+    technology 'TLS Crypto / KMS'
+  }
+
+  amex.travel .restApi amex.chat 'Support assisted servicing conversations' {
+    technology 'Chat platform integration'
+  }
+
+  amex.travel .restApi amex.dining 'Reference Amex-owned dining capabilities' {
+    technology 'Owned domain context; not in current iSeatz booking flow'
+  }
+
+}

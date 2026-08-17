@@ -1,0 +1,7 @@
+// travel/communications/relationships.c4
+
+model {
+  amex.travel.communications.pbcc.platform .restApi amex.notifications.platform 'Send customer notification' {
+    technology 'REST / JSON'
+  }
+}

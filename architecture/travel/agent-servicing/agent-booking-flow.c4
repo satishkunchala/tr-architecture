@@ -1,0 +1,64 @@
+// travel/agent-servicing/agent-booking-flow.c4
+// Agent-assisted booking flow. This is intentionally separate from the online
+// customer journey because the entry systems and servicing context differ.
+
+model {
+  amex.travel.agentServicing.agentTools.opus .restApi amex.travel.backendPlatforms.tlsProfiles.repository 'Retrieve traveler profile' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.agentServicing.agentTools.opus .restApi amex.travel.backendPlatforms.tlr.repository 'Retrieve existing trip context' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.agentServicing.agentTools.opus .restApi amex.travel.backendPlatforms.booking.platform 'Create assisted booking' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.agentServicing.agentTools.tca .restApi amex.travel.backendPlatforms.booking.platform 'Support booking workflow' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.backendPlatforms.booking.platform .restApi amex.travel.backendPlatforms.partnerConnectivity.tulips 'Invoke partner connectivity' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.backendPlatforms.partnerConnectivity.tulips .vendorIntegration external.partners.iseatz 'Book partner travel product' {
+    technology 'Partner integration'
+  }
+
+  amex.travel.backendPlatforms.partnerConnectivity.tulips .vendorIntegration external.partners.arrivia 'Book cruise' {
+    technology 'Arrivia partner integration'
+  }
+
+  amex.travel.backendPlatforms.partnerConnectivity.tulips .vendorIntegration external.partners.bookingPal 'Book vacation rental' {
+    technology 'BookingPal VRM integration'
+  }
+
+  amex.travel.backendPlatforms.partnerConnectivity.tulips .restApi amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform 'Pass assisted booking trip' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.backendPlatforms.tlr.repository .event amex.travel.communications.pbcc.platform 'Trigger booking communication' {
+    technology 'Event'
+  }
+}
+
+views {
+  view travel_agent_booking_flow {
+    title 'Agent Booking Flow'
+    include amex.travel.agentServicing.agentTools.opus
+    include amex.travel.agentServicing.agentTools.tca
+    include amex.travel.agentServicing.agentTools.pbas
+    include amex.travel.backendPlatforms.tlsProfiles.repository
+    include amex.travel.backendPlatforms.tlr.repository
+    include amex.travel.backendPlatforms.booking.platform
+    include amex.travel.backendPlatforms.partnerConnectivity.tulips
+    include external.partners.iseatz
+    include external.partners.arrivia
+    include external.partners.bookingPal
+    include amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform
+    include amex.travel.communications.pbcc.platform
+    autoLayout TopBottom 160 120
+  }
+}

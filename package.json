@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "architecture:validate": "node scripts/run-likec4.mjs validate --no-layout architecture",
+    "architecture:build": "node scripts/run-likec4.mjs build architecture -o architecture/dist --use-hash-history --title \"Travel Architecture\"",
+    "architecture:serve": "node scripts/likec4-static-site.mjs --serve",
+    "architecture:watch": "node scripts/likec4-static-site.mjs --watch",
+    "architecture:mcp": "node scripts/run-likec4.mjs mcp --stdio architecture",
+    "architecture:mcp:http": "node scripts/run-likec4.mjs mcp --http architecture"
+  },
+  "devDependencies": {}
+}

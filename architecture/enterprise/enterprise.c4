@@ -1,0 +1,158 @@
+// enterprise/enterprise.c4
+// Enterprise-level systems that Travel commonly consumes. Keep this file at the
+// platform level only; component detail belongs in each enterprise domain folder.
+
+model {
+  extend amex.identity {
+    platform = enterpriseSystem 'Enterprise Identity Platform' {
+      #enterprise, #tier1
+      metadata {
+        owner 'Enterprise Identity'
+        criticality 'Tier-1'
+        dataClassification 'Confidential'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+
+  extend amex.c360 {
+    platform = enterpriseSystem 'Customer 360 Platform' {
+      #enterprise, #tier1, #pii
+      metadata {
+        owner 'Customer 360'
+        criticality 'Tier-1'
+        dataClassification 'Confidential'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+
+  extend amex.loyalty {
+    platform = enterpriseSystem 'Loyalty Platform' {
+      #enterprise, #tier1
+      metadata {
+        owner 'Loyalty'
+        criticality 'Tier-1'
+        dataClassification 'Confidential'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+
+  extend amex.chat {
+    platform = enterpriseSystem 'Enterprise Chat Platform' {
+      #enterprise, #tier2, #agent-facing
+      metadata {
+        owner 'Enterprise Chat'
+        criticality 'Tier-2'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+
+  extend amex.dining {
+    resy = enterpriseSystem 'Resy' {
+      #enterprise, #tier1
+      description 'American Express owned dining reservation platform. Not currently part of the supported iSeatz Travel booking integration.'
+      metadata {
+        owner 'American Express Dining / Resy'
+        criticality 'Tier-1'
+        productLines 'Dining'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+
+  extend amex.payments {
+    platform = enterpriseSystem 'Payments Platform' {
+      #enterprise, #tier1, #pci
+      metadata {
+        owner 'Payments'
+        criticality 'Tier-1'
+        dataClassification 'PCI'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+
+  extend amex.notifications {
+    platform = enterpriseSystem 'Enterprise Notifications Platform' {
+      #enterprise, #tier1
+      metadata {
+        owner 'Enterprise Notifications'
+        criticality 'Tier-1'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+
+  extend amex.personalization {
+    platform = enterpriseSystem 'Enterprise Personalization Platform' {
+      #enterprise, #tier1, #customer-facing
+      description 'Enterprise personalization platform that consumes travel status and trip context to personalize customer experiences.'
+      metadata {
+        owner 'Enterprise Personalization'
+        criticality 'Tier-1'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+
+  extend amex.data {
+    kafka = eventStream 'Enterprise Event Stream' {
+      #enterprise, #tier1, #data
+      technology 'Kafka / Event Hub'
+      metadata {
+        owner 'Enterprise Data Platforms'
+        criticality 'Tier-1'
+        lifecycle 'Strategic'
+      }
+    }
+
+    rtf = eventStream 'RTF' {
+      #enterprise, #tier1, #data, #event
+      description 'American Express message queue platform used by TLR to publish transformed trip information for downstream subscribers.'
+      technology 'Message Queue Platform'
+      metadata {
+        owner 'Enterprise Data Platforms'
+        criticality 'Tier-1'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+
+  extend amex.security {
+    platform = enterpriseSystem 'Enterprise Security Platform' {
+      #enterprise, #tier1, #security
+      metadata {
+        owner 'Enterprise Security'
+        criticality 'Tier-1'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+
+  extend amex.apiGateways {
+    apigeeLegacyB2b = enterpriseSystem 'Apigee Gateway (legacy B2B)' {
+      #enterprise, #tier1, #security
+      description 'Legacy American Express B2B API gateway for partner-originated API calls.'
+      technology 'Apigee'
+      metadata {
+        owner 'Enterprise API Management'
+        criticality 'Tier-1'
+        lifecycle 'Legacy'
+      }
+    }
+
+    ewpB2b = enterpriseSystem 'EWP (B2B)' {
+      #enterprise, #tier1, #security
+      description 'American Express B2B API gateway for partner-originated API calls.'
+      technology 'EWP B2B API Gateway'
+      metadata {
+        owner 'Enterprise API Management'
+        criticality 'Tier-1'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+// travel/backend-platforms/data-ingestion/relationships.c4
+
+model {
+  amex.data.kafka .event amex.travel.backendPlatforms.dataIngestion.eventIngestion.platform 'Travel event stream' {
+    technology 'Kafka'
+  }
+
+  amex.travel.backendPlatforms.dataIngestion.eventIngestion.platform .event amex.travel.backendPlatforms.tlr.repository 'Travel event updates' {
+    technology 'Event'
+  }
+}

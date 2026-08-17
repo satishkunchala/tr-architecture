@@ -1,0 +1,23 @@
+// travel/agent-servicing/relationships.c4
+
+model {
+  amex.travel.agentServicing.agentTools.opus .restApi amex.travel.backendPlatforms.tlr.repository 'Retrieve and service trip' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.agentServicing.agentTools.tca .restApi amex.travel.backendPlatforms.tlr.repository 'Retrieve trip context' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.agentServicing.agentTools.pbas .restApi amex.travel.backendPlatforms.tlr.repository 'Retrieve booking support data' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.agentServicing.agentTools.opus .restApi amex.travel.backendPlatforms.tlsProfiles.repository 'Retrieve traveler profile' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.agentServicing.agentTools.opus .restApi amex.travel.communications.pbcc.platform 'Trigger servicing communication' {
+    technology 'REST / JSON'
+  }
+}

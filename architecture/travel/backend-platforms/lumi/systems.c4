@@ -1,0 +1,19 @@
+// travel/backend-platforms/lumi/systems.c4
+
+model {
+  extend amex.travel.backendPlatforms.lumi {
+    platform = travelSystem 'Lumi' {
+      #enterprise, #travel, #data, #tier1
+      description 'Enterprise BigData store that receives transformed trip information from TLR through RTF. Lumi is hosted on American Express private GCP cloud.'
+      technology 'BigData store / Amex private GCP cloud'
+      metadata {
+        owner 'Enterprise / Backend Platforms'
+        productArea 'Lumi'
+        hosting 'American Express private GCP cloud'
+        platformRole 'Enterprise BigData Store'
+        dataClassification 'Confidential'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+}

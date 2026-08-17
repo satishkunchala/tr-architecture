@@ -1,0 +1,14 @@
+// travel/views/travel-observability.c4
+
+views {
+  view travel_observability {
+    title 'Travel Observability'
+    include amex.travel.customerExperience.preBooking.homePage
+    include amex.travel.backendPlatforms.booking.platform
+    include amex.travel.backendPlatforms.partnerConnectivity.tulips
+    include external.vendors.dynatrace
+    include external.vendors.tealeaf
+    include external.vendors.splunk
+    autoLayout TopBottom 160 120
+  }
+}

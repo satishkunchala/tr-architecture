@@ -1,0 +1,8 @@
+// external/vendors/observability.c4
+// Kept as a domain-specific extension point for future observability vendors.
+
+model {
+  external.vendors.dynatrace .vendorIntegration external.vendors.splunk 'Forward observability events' {
+    technology 'Log forwarding'
+  }
+}

@@ -1,0 +1,351 @@
+// specification/element-kinds.c4
+// LikeC4 requires all element kinds to be declared in a specification block.
+// Color communicates ownership. Shape communicates technical responsibility.
+
+specification {
+  element customerActor {
+    notation 'Customer or card member'
+    style {
+      shape rectangle
+      color travelOwned
+      icon bootstrap:person-circle
+      iconPosition top
+      iconSize xl
+      size sm
+    }
+  }
+
+  element organization {
+    notation 'Organization boundary'
+    style {
+      shape rectangle
+      color neutralBoundary
+      border solid
+      opacity 15%
+    }
+  }
+
+  element domain {
+    notation 'Enterprise or business domain boundary'
+    style {
+      shape rectangle
+      color neutralBoundary
+      border dashed
+      opacity 18%
+    }
+  }
+
+  element capability {
+    notation 'Travel capability / subdomain'
+    style {
+      shape rectangle
+      color travelBoundary
+      border dashed
+      opacity 20%
+    }
+  }
+
+  element travelSystem {
+    notation 'Travel-owned system or platform'
+    style {
+      shape rectangle
+      color travelOwned
+    }
+  }
+
+  element travelApplication {
+    notation 'Travel-owned user-facing application or API surface'
+    style {
+      shape browser
+      color travelOwned
+    }
+  }
+
+  element enterpriseSystem {
+    notation 'Enterprise shared application or platform'
+    style {
+      shape rectangle
+      color enterpriseOwned
+    }
+  }
+
+  element enterpriseComponent {
+    notation 'Enterprise-owned component'
+    style {
+      shape component
+      color enterpriseOwned
+    }
+  }
+
+  element externalPartner {
+    notation 'External travel business partner'
+    style {
+      shape rectangle
+      color partnerOwned
+    }
+  }
+
+  element partnerApplication {
+    notation 'Partner-hosted application'
+    style {
+      shape browser
+      color partnerOwned
+    }
+  }
+
+  element partnerService {
+    notation 'Partner-hosted service'
+    style {
+      shape component
+      color partnerOwned
+    }
+  }
+
+  element partnerApiGateway {
+    notation 'Partner API gateway'
+    style {
+      shape component
+      color partnerOwned
+    }
+  }
+
+  element partnerDatabase {
+    notation 'Partner-owned database'
+    style {
+      shape cylinder
+      color partnerOwned
+    }
+  }
+
+  element partnerCache {
+    notation 'Partner-owned cache'
+    style {
+      shape storage
+      color partnerOwned
+    }
+  }
+
+  element partnerQueue {
+    notation 'Partner-owned queue or event bus'
+    style {
+      shape queue
+      color partnerOwned
+    }
+  }
+
+  element partnerConnector {
+    notation 'Partner connector'
+    style {
+      shape component
+      color partnerOwned
+    }
+  }
+
+  element technologyVendor {
+    notation 'Technology or SaaS vendor'
+    style {
+      shape rectangle
+      color vendorOwned
+    }
+  }
+
+  element api {
+    notation 'API'
+    style {
+      shape component
+      color travelOwned
+    }
+  }
+
+  element apiGateway {
+    notation 'API gateway'
+    style {
+      shape component
+      color travelOwned
+    }
+  }
+
+  element loadBalancer {
+    notation 'Load balancer'
+    style {
+      shape component
+      color travelOwned
+    }
+  }
+
+  element service {
+    notation 'Service'
+    style {
+      shape component
+      color travelOwned
+    }
+  }
+
+  element microservice {
+    notation 'Microservice'
+    style {
+      shape component
+      color travelOwned
+    }
+  }
+
+  element webApplication {
+    notation 'Web application'
+    style {
+      shape browser
+      color travelOwned
+    }
+  }
+
+  element mobileApplication {
+    notation 'Mobile application'
+    style {
+      shape mobile
+      color travelOwned
+    }
+  }
+
+  element partnerAdapter {
+    notation 'Partner adapter'
+    style {
+      shape component
+      color travelOwned
+    }
+  }
+
+  element database {
+    notation 'Relational database'
+    style {
+      shape cylinder
+      color travelOwned
+    }
+  }
+
+  element documentDatabase {
+    notation 'Document database'
+    style {
+      shape cylinder
+      color travelOwned
+    }
+  }
+
+  element keyValueStore {
+    notation 'Key-value store'
+    style {
+      shape storage
+      color travelOwned
+    }
+  }
+
+  element cache {
+    notation 'Cache'
+    style {
+      shape storage
+      color travelOwned
+    }
+  }
+
+  element objectStorage {
+    notation 'Object storage'
+    style {
+      shape bucket
+      color travelOwned
+    }
+  }
+
+  element searchIndex {
+    notation 'Search index'
+    style {
+      shape storage
+      color travelOwned
+    }
+  }
+
+  element dataWarehouse {
+    notation 'Data warehouse'
+    style {
+      shape cylinder
+      color enterpriseOwned
+    }
+  }
+
+  element messageQueue {
+    notation 'Message queue'
+    style {
+      shape queue
+      color travelOwned
+    }
+  }
+
+  element eventStream {
+    notation 'Event stream'
+    style {
+      shape queue
+      color enterpriseOwned
+    }
+  }
+
+  element eventProducer {
+    notation 'Event producer'
+    style {
+      shape component
+      color travelOwned
+    }
+  }
+
+  element eventConsumer {
+    notation 'Event consumer'
+    style {
+      shape component
+      color travelOwned
+    }
+  }
+
+  element batchProcessor {
+    notation 'Batch processor'
+    style {
+      shape component
+      color travelOwned
+    }
+  }
+
+  element scheduler {
+    notation 'Scheduler'
+    style {
+      shape component
+      color travelOwned
+    }
+  }
+
+  element dataPipeline {
+    notation 'Data pipeline'
+    style {
+      shape component
+      color travelOwned
+    }
+  }
+
+  element monitoringPlatform {
+    notation 'Monitoring platform'
+    style {
+      shape rectangle
+      color vendorOwned
+    }
+  }
+
+  element loggingPlatform {
+    notation 'Logging platform'
+    style {
+      shape rectangle
+      color vendorOwned
+    }
+  }
+
+  element secretsConfiguration {
+    notation 'Secrets and configuration'
+    style {
+      shape document
+      color enterpriseOwned
+    }
+  }
+}

@@ -1,0 +1,101 @@
+// travel/booking/relationships.c4
+// Relationship titles use the business action/event name. The technology field
+// carries protocol/security details such as OAuth2, REST, Kafka, SFTP, etc.
+
+model {
+  amex.travel.customerExperience.preBooking.homePage .http external.partners.iseatz.frontEnd 'Transfer control after search' {
+    technology 'HTTPS redirect / SSO context handoff'
+  }
+
+  external.partners.iseatz.amexConnectors .restApi amex.apiGateways.ewpB2b 'Route partner API calls' {
+    technology 'EWP B2B'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.identity.platform 'Authenticate customer session' {
+    technology 'OAuth2 / OIDC / federated session'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.c360.platform 'Retrieve customer profile context' {
+    technology 'REST / JSON'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.loyalty.platform 'Apply rewards and benefits' {
+    technology 'REST / JSON'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.payments.platform 'Authorize payment' {
+    technology 'REST / JSON / PCI controls'
+  }
+
+  amex.travel.backendPlatforms.booking.platform .vendorIntegration external.partners.iseatz 'Shop and book core travel products' {
+    technology 'iSeatz LXP / partner integration'
+  }
+
+  amex.travel.backendPlatforms.booking.platform .vendorIntegration external.partners.arrivia 'Shop and book cruises' {
+    technology 'Arrivia partner integration'
+  }
+
+  amex.travel.backendPlatforms.booking.platform .vendorIntegration external.partners.bookingPal 'Shop and book vacation rentals' {
+    technology 'BookingPal VRM integration'
+  }
+
+  amex.travel.backendPlatforms.booking.platform .vendorIntegration external.partners.airbnb 'Future vacation rental inventory' {
+    technology 'Future Airbnb integration'
+  }
+
+  amex.travel.backendPlatforms.booking.platform.eventProducer .event amex.data.kafka 'BookingCreated' {
+    technology 'Kafka'
+  }
+
+  amex.data.kafka .event amex.travel.communications.pbcc.platform 'Notify booking events' {
+    technology 'Kafka consumer'
+  }
+
+  amex.travel.communications.pbcc.platform .restApi amex.notifications.platform 'Send customer notification' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.backendPlatforms.booking.platform .vendorIntegration external.vendors.dynatrace 'Publish metrics and traces' {
+    technology 'Dynatrace API / OpenTelemetry'
+  }
+
+  amex.travel.customerExperience.preBooking.homePage .vendorIntegration external.vendors.tealeaf 'Capture digital session' {
+    technology 'JavaScript tag / Tealeaf'
+  }
+
+  amex.travel.backendPlatforms.booking.platform.gateway .http amex.travel.backendPlatforms.booking.platform.loadBalancer 'Route booking traffic' {
+    technology 'HTTPS'
+  }
+
+  amex.travel.backendPlatforms.booking.platform.loadBalancer .http amex.travel.backendPlatforms.booking.platform.api 'Forward booking requests' {
+    technology 'HTTPS'
+  }
+
+  amex.travel.backendPlatforms.booking.platform.api .restApi amex.travel.backendPlatforms.booking.platform.orchestrator 'Submit booking command' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.backendPlatforms.booking.platform.orchestrator .restApi amex.travel.backendPlatforms.booking.platform.reservationService 'Create reservation' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.backendPlatforms.booking.platform.reservationService .database amex.travel.backendPlatforms.booking.platform.db 'Persist booking' {
+    technology 'SQL / TLS'
+  }
+
+  amex.travel.backendPlatforms.booking.platform.reservationService .database amex.travel.backendPlatforms.booking.platform.cache 'Read booking cache' {
+    technology 'Redis protocol / TLS'
+  }
+
+  amex.travel.backendPlatforms.booking.platform.orchestrator .restApi amex.travel.backendPlatforms.booking.platform.partnerAdapter 'Invoke partner adapter' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.backendPlatforms.booking.platform.reservationService .event amex.travel.backendPlatforms.booking.platform.eventProducer 'BookingCreated' {
+    technology 'Internal event envelope'
+  }
+
+  amex.data.kafka .event amex.travel.backendPlatforms.booking.platform.eventConsumer 'BookingUpdated' {
+    technology 'Kafka'
+  }
+}

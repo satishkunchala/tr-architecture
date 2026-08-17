@@ -1,0 +1,40 @@
+// enterprise/member-context-apis.c4
+// Enterprise APIs composed by the Travel Membership Domain API.
+
+model {
+  extend amex.c360.platform {
+    c360Api = enterpriseComponent 'C360 API' {
+      #enterprise, #pii
+      description 'Enterprise customer profile API used for customer demographic information.'
+      technology 'REST / JSON'
+    }
+
+    mycaMemberApi = enterpriseComponent 'Myca Member API' {
+      #enterprise, #pii
+      description 'Enterprise member API used for card member account and demographic context.'
+      technology 'REST / JSON'
+    }
+  }
+
+  extend amex.loyalty.platform {
+    loyaltyAccountDetailsApi = enterpriseComponent 'Loyalty Account Details API' {
+      #enterprise, #pii
+      description 'Enterprise loyalty API used for Membership Rewards account details.'
+      technology 'REST / JSON'
+    }
+
+    globalBenefitsApi = enterpriseComponent 'Global Benefits API' {
+      #enterprise
+      description 'Enterprise benefits API used for card and account benefit eligibility.'
+      technology 'REST / JSON'
+    }
+  }
+
+  extend amex.payments.platform {
+    planItEligibilityApi = enterpriseComponent 'Plan It Eligibility API' {
+      #enterprise
+      description 'Enterprise Plan It API used to evaluate card member eligibility.'
+      technology 'REST / JSON'
+    }
+  }
+}

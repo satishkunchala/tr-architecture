@@ -1,0 +1,259 @@
+// external/partners/partners.c4
+// Third-party travel partners are business partners, not Amex-owned systems and
+// not technology vendors. They use the partner purple family.
+
+model {
+  extend external {
+    partners = domain 'Travel Partners' {
+      #partner, #external
+      description 'External travel business partners. Keep this list intentionally small and add partners only when there is a confirmed integration or architecture decision.'
+
+      iseatz = externalPartner 'iSeatz' {
+        #partner
+        description 'Global Travel integrator and hosted booking experience partner for American Express. American Express Travel hosts the home page, then transfers control to iSeatz LXP when the customer searches. iSeatz manages search results through booking confirmation.'
+        style {
+          icon @/partners/iseatz.png
+        }
+        metadata {
+          owner 'External Partner'
+          criticality 'Tier-1'
+          market 'Global'
+          integrationRole 'Hosted search-results-to-confirmation experience and supplier integrator'
+          controlBoundary 'Amex home page to iSeatz search and booking journey'
+          supplierRouting 'US: Expedia for hotel/car. International: Agoda for hotel, CarTrawler for car. All markets: Spotnana for air, Spotnana to Sabre. Future: GetYourGuide for tours/activities/attractions.'
+          dataClassification 'Confidential / PCI'
+          lifecycle 'Strategic'
+        }
+      }
+
+      expedia = externalPartner 'Expedia Group' {
+        #partner
+        description 'US-market downstream supplier reached through iSeatz for car and hotel inventory and booking.'
+        style {
+          icon @/partners/expedia-group.svg
+        }
+        metadata {
+          owner 'External Partner'
+          market 'US'
+          integrationRole 'US car and hotel supplier behind iSeatz'
+          productLines 'Car, Hotel'
+          integratedThrough 'iSeatz'
+          lifecycle 'Strategic'
+        }
+      }
+
+      agoda = externalPartner 'Agoda' {
+        #partner
+        description 'International downstream hotel supplier reached through iSeatz.'
+        style {
+          icon @/partners/agoda.png
+        }
+        metadata {
+          owner 'External Partner'
+          market 'International'
+          integrationRole 'International hotel supplier behind iSeatz'
+          productLines 'Hotel'
+          integratedThrough 'iSeatz'
+          lifecycle 'Strategic'
+        }
+      }
+
+      carTrawler = externalPartner 'CarTrawler' {
+        #partner
+        description 'International downstream car supplier reached through iSeatz.'
+        style {
+          icon @/partners/cartrawler.png
+        }
+        metadata {
+          owner 'External Partner'
+          market 'International'
+          integrationRole 'International car supplier behind iSeatz'
+          productLines 'Car'
+          integratedThrough 'iSeatz'
+          lifecycle 'Strategic'
+        }
+      }
+
+      spotnana = externalPartner 'Spotnana' {
+        #partner
+        description 'Global downstream air supplier reached through iSeatz. Spotnana integrates onward to Sabre.'
+        style {
+          icon @/partners/spotnana.png
+        }
+        metadata {
+          owner 'External Partner'
+          market 'Global'
+          integrationRole 'Global air supplier behind iSeatz'
+          productLines 'Air'
+          integratedThrough 'iSeatz'
+          lifecycle 'Strategic'
+        }
+      }
+
+      sabre = externalPartner 'Sabre' {
+        #partner
+        description 'Global distribution system used downstream by Spotnana for air content and booking.'
+        style {
+          icon @/partners/sabre.png
+        }
+        metadata {
+          owner 'External Partner'
+          market 'Global'
+          integrationRole 'Current GDS behind Spotnana'
+          productLines 'Air'
+          integratedThrough 'Spotnana'
+          lifecycle 'Strategic'
+        }
+      }
+
+      amadeus = externalPartner 'Amadeus' {
+        #partner
+        description 'Desired future LXP GDS partner for air capabilities.'
+        style {
+          icon @/partners/amadeus.png
+        }
+        metadata {
+          owner 'External Partner'
+          market 'Global'
+          integrationRole 'Future desired GDS partner'
+          productLines 'Air'
+          integratedThrough 'iSeatz'
+          lifecycle 'Future'
+          timing 'TBD'
+        }
+      }
+
+      vervotech = externalPartner 'Vervotech' {
+        #partner
+        description 'Future hotel deduplication capability for international markets, including Agoda and Expedia Group hotel supply.'
+        style {
+          icon @/partners/vervotech.png
+        }
+        metadata {
+          owner 'External Partner'
+          market 'International'
+          integrationRole 'Hotel deduplication'
+          productLines 'Hotel'
+          integratedThrough 'iSeatz'
+          lifecycle 'Future'
+          timing 'Q3 2026'
+        }
+      }
+
+      derbySoft = externalPartner 'DerbySoft' {
+        #partner
+        description 'Future direct connectivity to hotel CRS through switch connectivity.'
+        style {
+          icon @/partners/derbysoft.png
+        }
+        metadata {
+          owner 'External Partner'
+          market 'Global'
+          integrationRole 'Hotel CRS switch connectivity'
+          productLines 'Hotel'
+          integratedThrough 'iSeatz'
+          lifecycle 'Future'
+          timing 'Q3 2026'
+        }
+      }
+
+      rentalCarDirectConnect = externalPartner 'Rental Car Direct Connectivity' {
+        #partner
+        description 'Future direct connectivity to rental car CRS providers such as Avis/Budget, Hertz, Enterprise, and National.'
+        style {
+          icon bootstrap:car-front-fill
+        }
+        metadata {
+          owner 'External Partner'
+          market 'Global'
+          integrationRole 'Direct rental car CRS connectivity'
+          productLines 'Car'
+          integratedThrough 'iSeatz'
+          lifecycle 'Future'
+          timing 'Q2/Q3 2026'
+        }
+      }
+
+      getYourGuide = externalPartner 'GetYourGuide' {
+        #partner
+        description 'Future downstream supplier for tours, activities, and attractions through iSeatz.'
+        style {
+          icon @/partners/getyourguide.png
+        }
+        metadata {
+          owner 'External Partner'
+          market 'Global'
+          integrationRole 'Future tours, activities, and attractions supplier behind iSeatz'
+          productLines 'Tours, Activities, Attractions'
+          integratedThrough 'iSeatz'
+          lifecycle 'Future'
+        }
+      }
+
+      appleRetailStore = externalPartner 'Apple Retail Store' {
+        #partner
+        description 'Future Apple Retail Store integration opportunity.'
+        style {
+          icon @/partners/apple.svg
+        }
+        metadata {
+          owner 'External Partner'
+          market 'Global'
+          integrationRole 'Future Apple Retail Store integration'
+          productLines 'Retail'
+          integratedThrough 'iSeatz'
+          lifecycle 'Future'
+          timing 'TBD'
+        }
+      }
+
+      arrivia = externalPartner 'Arrivia' {
+        #partner
+        description 'Online booking partner used by Amex Travel Booking Platform for cruise bookings.'
+        style {
+          icon @/partners/arrivia.png
+        }
+        metadata {
+          owner 'External Partner'
+          market 'Online'
+          integrationRole 'Cruise booking partner'
+          productLines 'Cruise'
+          integratedThrough 'Amex Travel Booking Platform'
+          lifecycle 'Strategic'
+        }
+      }
+
+      bookingPal = externalPartner 'BookingPal' {
+        #partner
+        description 'Online vacation-rental marketplace integrator used by Amex Travel Booking Platform for VRM vacation rental inventory.'
+        style {
+          icon @/partners/bookingpal.webp
+        }
+        metadata {
+          owner 'External Partner'
+          market 'Online'
+          integrationRole 'Vacation rental / VRM inventory integrator'
+          productLines 'Vacation Rental'
+          integratedThrough 'Amex Travel Booking Platform'
+          lifecycle 'Strategic'
+        }
+      }
+
+      airbnb = externalPartner 'Airbnb' {
+        #partner
+        description 'Future vacation-rental inventory integration for Amex Travel Booking Platform.'
+        style {
+          icon @/partners/airbnb.svg
+        }
+        metadata {
+          owner 'External Partner'
+          market 'Online'
+          integrationRole 'Future vacation rental inventory partner'
+          productLines 'Vacation Rental'
+          integratedThrough 'Amex Travel Booking Platform'
+          lifecycle 'Future'
+        }
+      }
+    }
+  }
+}

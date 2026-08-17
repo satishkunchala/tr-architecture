@@ -1,0 +1,29 @@
+// views/travel-partner-ecosystem.c4
+
+views {
+  view travel_partner_ecosystem {
+    title 'Travel Partner Ecosystem'
+    include amex.travel.backendPlatforms.booking.platform
+    include external.partners.iseatz
+    include external.partners.iseatz.supplierConnectors
+    include external.partners.iseatz.airConnector
+    include external.partners.iseatz.hotelConnector
+    include external.partners.iseatz.carConnector
+    include external.partners.iseatz.activitiesConnector
+    include external.partners.expedia
+    include external.partners.agoda
+    include external.partners.carTrawler
+    include external.partners.spotnana
+    include external.partners.sabre
+    include external.partners.amadeus
+    include external.partners.vervotech
+    include external.partners.derbySoft
+    include external.partners.rentalCarDirectConnect
+    include external.partners.getYourGuide
+    include external.partners.appleRetailStore
+    include external.partners.arrivia
+    include external.partners.bookingPal
+    include external.partners.airbnb
+    autoLayout TopBottom 160 120
+  }
+}

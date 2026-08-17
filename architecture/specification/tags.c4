@@ -1,0 +1,39 @@
+// specification/tags.c4
+// Tags add queryable metadata. Only ownership-oriented element kinds carry
+// default colors; tags are not a license for teams to invent new palettes.
+
+specification {
+  tag enterprise
+  tag travel
+  tag partner
+  tag vendor
+  tag external
+  tag domain
+
+  tag tier1
+  tag tier2
+  tag tier3
+
+  tag pii
+  tag pci
+  tag confidential
+
+  tag legacy
+  tag strategic
+  tag decommissioning
+
+  tag sync
+  tag async
+  tag batch
+  tag event
+
+  tag customer-facing
+  tag agent-facing
+  tag back-office
+  tag partner-integration
+  tag observability
+  tag logging
+  tag security
+  tag infrastructure
+  tag data
+}

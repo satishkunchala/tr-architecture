@@ -1,0 +1,12 @@
+// travel/agent-servicing/views.c4
+
+views {
+  view travel_agent_servicing_context {
+    title 'Travel Agent Servicing'
+    include amex.travel.agentServicing.agentTools.*
+    include amex.travel.backendPlatforms.tlr.repository
+    include amex.travel.backendPlatforms.tlsProfiles.repository
+    include amex.travel.communications.pbcc.platform
+    autoLayout TopBottom 150 110
+  }
+}

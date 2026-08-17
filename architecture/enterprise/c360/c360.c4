@@ -1,0 +1,15 @@
+// enterprise/c360/c360.c4
+
+model {
+  extend amex.c360.platform {
+    profileApi = enterpriseComponent 'Profile API' {
+      #enterprise, #pii
+      technology 'REST / JSON'
+    }
+
+    profileWarehouse = dataWarehouse 'C360 Data Warehouse' {
+      #enterprise, #pii, #data
+      technology 'Enterprise data warehouse'
+    }
+  }
+}

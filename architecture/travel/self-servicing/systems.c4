@@ -1,0 +1,15 @@
+// travel/self-servicing/systems.c4
+
+model {
+  extend amex.travel.selfServicing.pbss {
+    platform = travelApplication 'PBSS' {
+      #travel, #customer-facing, #tier1
+      description 'Post Booking Self Servicing pages for customer trip management.'
+      metadata {
+        owner 'Self Servicing'
+        productArea 'PBSS'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+}

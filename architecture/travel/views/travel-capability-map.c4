@@ -1,0 +1,16 @@
+// travel/views/travel-capability-map.c4
+
+views {
+  view travel_capability_map of amex.travel {
+    title 'Travel Capability Map'
+    include amex.travel.customerExperience
+    include amex.travel.selfServicing
+    include amex.travel.agentServicing
+    include amex.travel.communications
+    include amex.travel.capabilities
+    include amex.travel.backendPlatforms
+    include amex.travel.marketingCommercial
+    include amex.travel.backOffice
+    autoLayout TopBottom 150 110
+  }
+}

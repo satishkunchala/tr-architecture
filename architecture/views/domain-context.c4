@@ -1,0 +1,20 @@
+// views/domain-context.c4
+// Alternate enterprise/domain context view with only domains and primary shared
+// platforms. Useful for leadership reviews.
+
+views {
+  view domain_context of amex {
+    title 'Domain Context'
+    include amex.travel
+    include amex.loyalty
+    include amex.insurance
+    include amex.identity
+    include amex.c360
+    include amex.chat
+    include amex.dining
+    include amex.payments
+    include amex.notifications
+    include amex.data
+    autoLayout TopBottom 150 120
+  }
+}

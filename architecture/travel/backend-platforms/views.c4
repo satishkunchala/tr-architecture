@@ -1,0 +1,24 @@
+// travel/backend-platforms/views.c4
+
+views {
+  view travel_backend_platforms_landscape of amex.travel.backendPlatforms {
+    title 'Travel Backend Platforms'
+    include *
+    autoLayout TopBottom 150 110
+  }
+
+  view travel_tlr_trip_distribution_flow {
+    title 'TLR Trip Distribution Flow'
+    description 'TLR receives full trip information from Trips Ingestion through a message queue, transforms and stores it as the trip system of record, then publishes transformed trip information to RTF for known downstream subscribers.'
+    include amex.travel.backendPlatforms.partnerConnectivity.tulips
+    include amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform
+    include amex.travel.backendPlatforms.tlr.tripIngestionQueue
+    include amex.travel.backendPlatforms.tlr.repository
+    include amex.travel.backendPlatforms.tlr.tripStore
+    include amex.data.rtf
+    include amex.travel.backendPlatforms.lumi.platform
+    include amex.travel.selfServicing.pbss.platform
+    include amex.travel.communications.pbcc.platform
+    autoLayout LeftRight 160 120
+  }
+}

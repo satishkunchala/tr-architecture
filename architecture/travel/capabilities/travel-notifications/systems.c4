@@ -1,0 +1,57 @@
+// travel/capabilities/travel-notifications/systems.c4
+// Travel notification capability. This remains separate from PBCC so non-booking
+// flows can evolve without being forced into the booking journey model.
+
+model {
+  extend amex.travel.capabilities.travelNotifications {
+    platform = travelSystem 'Travel Notifications' {
+      #travel, #customer-facing, #tier1
+      description 'Travel-owned system that receives flight events, matches them to trips, and publishes processed notification events for enterprise consumption.'
+      technology 'Travel notification orchestration'
+      metadata {
+        owner 'Travel Capabilities'
+        productArea 'Notifications'
+        lifecycle 'Strategic'
+      }
+    }
+
+    inboundFlightWebhook = api 'Inbound Flight Event Webhook' {
+      #travel, #tier1
+      description 'HTTPS webhook hosted by Travel Notifications for receiving flight-related events from OAG.'
+      technology 'HTTPS webhook'
+    }
+
+    flightEventStore = documentDatabase 'Flight Event Store' {
+      #travel, #data, #tier1
+      description 'Persistence store for raw and normalized flight event information received from OAG.'
+      technology 'Database TBD'
+    }
+
+    tripMatcher = service 'Trip Matching Service' {
+      #travel, #tier1
+      description 'Matches incoming flight events with trips retrieved from TLR.'
+      technology 'Service'
+    }
+
+    notificationProcessor = service 'Notification Processing Service' {
+      #travel, #tier1
+      description 'Evaluates matched flight events and prepares travel notification payloads for downstream consumption.'
+      technology 'Service'
+    }
+
+    rtfPublisher = eventProducer 'RTF Publisher' {
+      #travel, #event, #tier1
+      description 'Publishes processed travel notification events to Enterprise RTF.'
+      technology 'RTF producer'
+    }
+
+    flightStatusApi = api 'Flight Status API' {
+      #travel, #tier1
+      description 'Travel Notifications hosted /flight/status API exposed to Enterprise Personalization.'
+      technology 'REST / JSON'
+      metadata {
+        endpoint '/flight/status'
+      }
+    }
+  }
+}

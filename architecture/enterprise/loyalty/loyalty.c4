@@ -1,0 +1,10 @@
+// enterprise/loyalty/loyalty.c4
+
+model {
+  extend amex.loyalty.platform {
+    payWithPointsApi = enterpriseComponent 'Pay With Points Global V2 API' {
+      #enterprise
+      technology 'REST / JSON'
+    }
+  }
+}

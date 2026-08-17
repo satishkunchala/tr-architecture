@@ -1,0 +1,17 @@
+// travel/backend-platforms/tls-profiles/systems.c4
+
+model {
+  extend amex.travel.backendPlatforms.tlsProfiles {
+    repository = travelSystem 'TLS Profiles' {
+      #travel, #pii, #tier1
+      description 'Travel profile information repository.'
+      metadata {
+        owner 'Backend Platforms'
+        productArea 'TLS Profiles'
+        criticality 'Tier-1'
+        dataClassification 'Confidential'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+}

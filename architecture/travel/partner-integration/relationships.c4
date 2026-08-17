@@ -1,0 +1,51 @@
+// travel/partner-integration/relationships.c4
+
+model {
+  external.partners.iseatz.carConnector .vendorIntegration external.partners.expedia 'Shop and book US car' {
+    technology 'Expedia partner integration'
+  }
+
+  external.partners.iseatz.hotelConnector .vendorIntegration external.partners.expedia 'Shop and book US hotel' {
+    technology 'Expedia partner integration'
+  }
+
+  external.partners.iseatz.hotelConnector .vendorIntegration external.partners.agoda 'Shop and book international hotel' {
+    technology 'Agoda partner integration'
+  }
+
+  external.partners.iseatz.carConnector .vendorIntegration external.partners.carTrawler 'Shop and book international car' {
+    technology 'CarTrawler partner integration'
+  }
+
+  external.partners.iseatz.airConnector .vendorIntegration external.partners.spotnana 'Shop and book air for all markets' {
+    technology 'Spotnana air integration'
+  }
+
+  external.partners.spotnana .vendorIntegration external.partners.sabre 'Search and reserve air inventory' {
+    technology 'Sabre / GDS'
+  }
+
+  external.partners.iseatz.airConnector .vendorIntegration external.partners.amadeus 'Future desired GDS air capabilities' {
+    technology 'Future Amadeus integration / TBD'
+  }
+
+  external.partners.iseatz.hotelConnector .vendorIntegration external.partners.vervotech 'Future hotel deduplication' {
+    technology 'Future Vervotech integration / Q3 2026'
+  }
+
+  external.partners.iseatz.hotelConnector .vendorIntegration external.partners.derbySoft 'Future hotel CRS switch connectivity' {
+    technology 'Future DerbySoft integration / Q3 2026'
+  }
+
+  external.partners.iseatz.carConnector .vendorIntegration external.partners.rentalCarDirectConnect 'Future rental car CRS direct connectivity' {
+    technology 'Future direct connect / Q2-Q3 2026'
+  }
+
+  external.partners.iseatz.activitiesConnector .vendorIntegration external.partners.getYourGuide 'Future tours, activities, and attractions' {
+    technology 'Future GetYourGuide integration'
+  }
+
+  external.partners.iseatz.supplierConnectors .vendorIntegration external.partners.appleRetailStore 'Future Apple Retail Store integration' {
+    technology 'Future integration / TBD'
+  }
+}

@@ -1,0 +1,15 @@
+// travel/communications/systems.c4
+
+model {
+  extend amex.travel.communications.pbcc {
+    platform = travelSystem 'PBCC' {
+      #travel, #tier1
+      description 'Post Booking Customer Communications platform.'
+      metadata {
+        owner 'Communications'
+        productArea 'PBCC'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+}

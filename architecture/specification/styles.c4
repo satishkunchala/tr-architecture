@@ -1,0 +1,15 @@
+// specification/styles.c4
+// LikeC4 custom colors are base colors; the renderer derives readable fill,
+// border, text, and edge palettes. Requested exact fill/border/text values are
+// documented in README, while the DSL uses supported custom color tokens.
+
+specification {
+  color travelOwned #CCFCC4
+  color enterpriseOwned #006FCF
+  color partnerOwned #7E57C2
+  color vendorOwned #64748B
+  color neutralBoundary #F8FAFC
+  color travelBoundary #F3F8F1
+  color enterpriseBoundary #F3F7FC
+  color externalBoundary #FAF7FC
+}

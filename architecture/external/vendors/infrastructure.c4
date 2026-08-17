@@ -1,0 +1,7 @@
+// external/vendors/infrastructure.c4
+
+model {
+  external.vendors.cloudProviders .vendorIntegration external.vendors.dynatrace 'Export platform telemetry' {
+    technology 'OpenTelemetry'
+  }
+}

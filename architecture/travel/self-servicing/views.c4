@@ -1,0 +1,12 @@
+// travel/self-servicing/views.c4
+
+views {
+  view travel_self_servicing_context {
+    title 'Travel Self Servicing'
+    include amex.travel.selfServicing.pbss.platform
+    include amex.travel.backendPlatforms.tlr.repository
+    include amex.travel.backendPlatforms.tlsProfiles.repository
+    include amex.travel.communications.pbcc.platform
+    autoLayout TopBottom 150 110
+  }
+}

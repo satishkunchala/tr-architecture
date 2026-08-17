@@ -1,0 +1,11 @@
+// travel/marketing-commercial/views.c4
+
+views {
+  view travel_marketing_commercial_context {
+    title 'Travel Marketing and Commercial Platforms'
+    include amex.travel.marketingCommercial.*
+    include amex.travel.customerExperience.inspiration.experience
+    include amex.travel.customerExperience.preBooking.homePage
+    autoLayout TopBottom 150 110
+  }
+}

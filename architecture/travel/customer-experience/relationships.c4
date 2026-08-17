@@ -1,0 +1,31 @@
+// travel/customer-experience/relationships.c4
+
+model {
+  amex.travel.customerExperience.inspiration.experience .http amex.travel.customerExperience.preBooking.homePage 'Drive travel discovery' {
+    technology 'HTTPS'
+  }
+
+  amex.travel.customerExperience.preBooking.homePage .http amex.travel.customerExperience.preBooking.searchEntry 'Start search' {
+    technology 'HTTPS'
+  }
+
+  amex.travel.customerExperience.preBooking.mobileApp .restApi amex.travel.customerExperience.preBooking.searchEntry 'Start mobile search' {
+    technology 'Mobile API'
+  }
+
+  amex.travel.customerExperience.preBooking.searchEntry .http external.partners.iseatz.frontEnd 'Transfer control after search' {
+    technology 'HTTPS redirect / SSO context handoff'
+  }
+
+  amex.travel.customerExperience.bookingExperience.partnerBookingEntry .vendorIntegration external.partners.iseatz 'Launch partner booking journey' {
+    technology 'iSeatz LXP'
+  }
+
+  amex.travel.customerExperience.bookingExperience.vacationRentalBooking .vendorIntegration external.partners.bookingPal 'Shop vacation rental inventory' {
+    technology 'BookingPal VRM integration'
+  }
+
+  amex.travel.customerExperience.bookingExperience.vacationRentalBooking .vendorIntegration external.partners.airbnb 'Future vacation rental inventory' {
+    technology 'Future Airbnb integration'
+  }
+}

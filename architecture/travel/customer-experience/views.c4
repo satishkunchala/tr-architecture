@@ -1,0 +1,12 @@
+// travel/customer-experience/views.c4
+
+views {
+  view travel_customer_experience_landscape of amex.travel.customerExperience {
+    title 'Travel Customer Experience'
+    include *
+    include external.partners.iseatz
+    include external.partners.bookingPal
+    include external.partners.airbnb
+    autoLayout TopBottom 150 110
+  }
+}

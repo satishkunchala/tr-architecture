@@ -1,0 +1,32 @@
+// travel/capabilities/views.c4
+
+views {
+  view travel_capabilities_landscape of amex.travel.capabilities {
+    title 'Travel Capabilities Landscape'
+    description 'Reusable Travel-owned systems and APIs that are not part of the core booking flow.'
+    include amex.travel.capabilities.*
+    include amex.apiGateways.ewpB2b
+    include amex.c360.platform.c360Api
+    include amex.c360.platform.mycaMemberApi
+    include amex.loyalty.platform.loyaltyAccountDetailsApi
+    include amex.payments.platform.planItEligibilityApi
+    include amex.loyalty.platform.globalBenefitsApi
+    include amex.personalization.platform
+    include amex.travel.backendPlatforms.tlr.repository
+    include amex.data.rtf
+    include external.vendors.oag
+    autoLayout TopBottom 140 110
+  }
+
+  view travel_notifications_flow of amex.travel.capabilities.travelNotifications {
+    title 'Travel Notifications Flight Event Flow'
+    description 'OAG flight events enter through the Amex B2B gateway, are stored and matched to TLR trips, then processed notification events are published to Enterprise RTF. Enterprise Personalization consumes the hosted /flight/status API.'
+    include external.vendors.oag
+    include amex.apiGateways.ewpB2b
+    include amex.travel.capabilities.travelNotifications.*
+    include amex.travel.backendPlatforms.tlr.repository
+    include amex.data.rtf
+    include amex.personalization.platform
+    autoLayout LeftRight 150 110
+  }
+}

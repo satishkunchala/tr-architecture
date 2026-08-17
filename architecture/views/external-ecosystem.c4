@@ -1,0 +1,11 @@
+// views/external-ecosystem.c4
+
+views {
+  view external_ecosystem of external {
+    title 'External Ecosystem'
+    include external.*
+    include external.partners.*
+    include external.vendors.*
+    autoLayout TopBottom 160 120
+  }
+}

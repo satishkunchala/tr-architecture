@@ -1,0 +1,284 @@
+// travel/customer-experience/us-air-booking-flow.c4
+// Online US Air customer journey. This view intentionally shows only the major
+// customer journey steps and key backend/enterprise dependencies.
+
+model {
+  amex.travel.customerExperience.preBooking.homePage .http external.partners.iseatz.resultsPage 'Search air travel' {
+    technology 'HTTPS redirect / SSO context handoff'
+  }
+
+  external.partners.iseatz.resultsPage .http external.partners.iseatz.detailsPage 'Select flight' {
+    technology 'iSeatz LXP'
+  }
+
+  external.partners.iseatz.detailsPage .http external.partners.iseatz.checkoutPage 'Continue to checkout' {
+    technology 'iSeatz LXP'
+  }
+
+  external.partners.iseatz.checkoutPage .restApi amex.apiGateways.ewpB2b 'Route checkout API calls' {
+    technology 'EWP B2B'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.travel.backendPlatforms.tlsProfiles.repository 'Retrieve traveler profile' {
+    technology 'REST / JSON'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.security.platform.tlsCrypto 'Tokenize sensitive data' {
+    technology 'TLS crypto'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.payments.platform.merchantOfRecord 'Evaluate MOR' {
+    technology 'REST / JSON'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.payments.platform.cardAuthorization 'Authorize payment' {
+    technology 'REST / JSON / PCI controls'
+  }
+
+  external.partners.iseatz.checkoutPage .http external.partners.iseatz.confirmationPage 'Confirm booking' {
+    technology 'iSeatz LXP'
+  }
+
+  external.partners.iseatz.confirmationPage .event external.partners.iseatz.bookingEventPublisher 'Publish booking confirmation event' {
+    technology 'iSeatz event'
+  }
+
+  external.partners.iseatz.bookingEventPublisher .event amex.travel.backendPlatforms.partnerConnectivity.tulips 'Booking event' {
+    technology 'Event notification'
+  }
+}
+
+views {
+  view travel_online_us_air_booking_flow {
+    title 'US Air Online Booking Flow'
+    include amex.travel.customerExperience.preBooking.homePage
+    include external.partners.iseatz.resultsPage
+    include external.partners.iseatz.detailsPage
+    include external.partners.iseatz.checkoutPage
+    include amex.apiGateways.ewpB2b
+    include amex.travel.backendPlatforms.tlsProfiles.repository
+    include amex.security.platform.tlsCrypto
+    include amex.payments.platform.merchantOfRecord
+    include amex.payments.platform.cardAuthorization
+    include external.partners.iseatz.confirmationPage
+    include external.partners.iseatz.bookingEventPublisher
+    include amex.travel.backendPlatforms.partnerConnectivity.tulips
+    include external.partners.iseatz.orderbahn
+    include amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform
+    include amex.travel.backendPlatforms.tlr.tripIngestionQueue
+    include amex.travel.backendPlatforms.tlr.repository
+    include amex.travel.backendPlatforms.tlr.tripStore
+    include amex.data.rtf
+    include amex.travel.backendPlatforms.lumi.platform
+    autoLayout TopBottom 160 120
+  }
+
+  dynamic view travel_online_us_air_booking_flow_dynamic {
+    title 'US Air Online Booking Flow / Dynamic'
+    description 'Happy-path sequence for a US online air booking: Amex hosts the Travel Home Page, iSeatz owns results through confirmation, Spotnana/Sabre provide air supply, and Amex ingests the confirmed trip into TLR and Lumi.'
+    variant sequence
+
+    cardMember -> amex.travel.customerExperience.preBooking.homePage 'Search air travel'
+    amex.travel.customerExperience.preBooking.homePage -> external.partners.iseatz.resultsPage 'Transfer search context'
+    external.partners.iseatz.resultsPage -> external.partners.iseatz.airConnector 'Search US air inventory'
+    external.partners.iseatz.airConnector -> external.partners.spotnana 'Request air offers'
+    external.partners.spotnana -> external.partners.sabre 'Shop air content'
+    external.partners.spotnana <- external.partners.sabre 'Return flight availability'
+    external.partners.iseatz.airConnector <- external.partners.spotnana 'Return air offers'
+    external.partners.iseatz.resultsPage -> cardMember 'Display search results'
+
+    cardMember -> external.partners.iseatz.detailsPage 'Select flight'
+    external.partners.iseatz.detailsPage -> cardMember 'Display itinerary details'
+    cardMember -> external.partners.iseatz.checkoutPage 'Continue to checkout'
+
+    parallel 'Checkout enterprise calls' {
+      external.partners.iseatz.checkoutPage -> amex.apiGateways.ewpB2b 'Route checkout API calls'
+      amex.apiGateways.ewpB2b -> amex.travel.backendPlatforms.tlsProfiles.repository 'Retrieve traveler profile'
+      amex.apiGateways.ewpB2b -> amex.security.platform.tlsCrypto 'Tokenize sensitive data'
+      amex.apiGateways.ewpB2b -> amex.payments.platform.merchantOfRecord 'Evaluate MOR'
+      amex.apiGateways.ewpB2b -> amex.payments.platform.cardAuthorization 'Authorize payment'
+    }
+
+    external.partners.iseatz.checkoutPage -> external.partners.iseatz.orderbahn 'Create air booking'
+    external.partners.iseatz.orderbahn -> external.partners.iseatz.airConnector 'Book selected itinerary'
+    external.partners.iseatz.airConnector -> external.partners.spotnana 'Book air itinerary'
+    external.partners.spotnana -> external.partners.sabre 'Create Sabre booking'
+    external.partners.spotnana <- external.partners.sabre 'Return booking record'
+    external.partners.iseatz.airConnector <- external.partners.spotnana 'Return booked itinerary'
+    external.partners.iseatz.orderbahn <- external.partners.iseatz.airConnector 'Return iSeatz order'
+    external.partners.iseatz.checkoutPage <- external.partners.iseatz.orderbahn 'Return booking confirmation'
+    external.partners.iseatz.checkoutPage -> external.partners.iseatz.confirmationPage 'Render confirmation'
+    external.partners.iseatz.confirmationPage -> cardMember 'Show confirmation'
+
+    external.partners.iseatz.confirmationPage -> external.partners.iseatz.bookingEventPublisher 'Publish booking confirmation event'
+    external.partners.iseatz.bookingEventPublisher -> amex.travel.backendPlatforms.partnerConnectivity.tulips 'Notify booking event'
+    amex.travel.backendPlatforms.partnerConnectivity.tulips -> external.partners.iseatz.orderbahn 'Retrieve full trip information'
+    amex.travel.backendPlatforms.partnerConnectivity.tulips -> amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform 'Pass full trip information'
+    amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform -> amex.travel.backendPlatforms.tlr.tripIngestionQueue 'Publish full trip information'
+    amex.travel.backendPlatforms.tlr.tripIngestionQueue -> amex.travel.backendPlatforms.tlr.repository 'Deliver trip information'
+    amex.travel.backendPlatforms.tlr.repository -> amex.travel.backendPlatforms.tlr.tripStore 'Transform and store trip information'
+    amex.travel.backendPlatforms.tlr.repository -> amex.data.rtf 'Publish transformed trip information'
+    amex.data.rtf -> amex.travel.backendPlatforms.lumi.platform 'Trip information update'
+
+    include
+      cardMember,
+      amex.travel.customerExperience.preBooking.homePage,
+      external.partners.iseatz.resultsPage,
+      external.partners.iseatz.detailsPage,
+      external.partners.iseatz.checkoutPage,
+      amex.apiGateways.ewpB2b,
+      amex.travel.backendPlatforms.tlsProfiles.repository,
+      amex.security.platform.tlsCrypto,
+      amex.payments.platform.merchantOfRecord,
+      amex.payments.platform.cardAuthorization,
+      external.partners.iseatz.orderbahn,
+      external.partners.iseatz.airConnector,
+      external.partners.spotnana,
+      external.partners.sabre,
+      external.partners.iseatz.confirmationPage,
+      external.partners.iseatz.bookingEventPublisher,
+      amex.travel.backendPlatforms.partnerConnectivity.tulips,
+      amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform,
+      amex.travel.backendPlatforms.tlr.tripIngestionQueue,
+      amex.travel.backendPlatforms.tlr.repository,
+      amex.travel.backendPlatforms.tlr.tripStore,
+      amex.data.rtf,
+      amex.travel.backendPlatforms.lumi.platform
+  }
+
+  dynamic view travel_online_us_hotel_booking_flow_dynamic {
+    title 'US Hotel Online Booking Flow / Dynamic'
+    description 'Happy-path sequence for a US online hotel booking: Amex hosts the Travel Home Page, iSeatz owns results through confirmation, Expedia provides US hotel supply, and Amex ingests the confirmed trip into TLR and Lumi.'
+    variant sequence
+
+    cardMember -> amex.travel.customerExperience.preBooking.homePage 'Search US hotel'
+    amex.travel.customerExperience.preBooking.homePage -> external.partners.iseatz.resultsPage 'Transfer search context'
+    external.partners.iseatz.resultsPage -> external.partners.iseatz.hotelConnector 'Search US hotel inventory'
+    external.partners.iseatz.hotelConnector -> external.partners.expedia 'Request hotel offers'
+    external.partners.iseatz.hotelConnector <- external.partners.expedia 'Return hotel availability'
+    external.partners.iseatz.resultsPage -> cardMember 'Display search results'
+
+    cardMember -> external.partners.iseatz.detailsPage 'Select hotel'
+    external.partners.iseatz.detailsPage -> cardMember 'Display hotel details'
+    cardMember -> external.partners.iseatz.checkoutPage 'Continue to checkout'
+
+    parallel 'Checkout enterprise calls' {
+      external.partners.iseatz.checkoutPage -> amex.apiGateways.ewpB2b 'Route checkout API calls'
+      amex.apiGateways.ewpB2b -> amex.travel.backendPlatforms.tlsProfiles.repository 'Retrieve traveler profile'
+      amex.apiGateways.ewpB2b -> amex.security.platform.tlsCrypto 'Tokenize sensitive data'
+      amex.apiGateways.ewpB2b -> amex.payments.platform.merchantOfRecord 'Evaluate MOR'
+      amex.apiGateways.ewpB2b -> amex.payments.platform.cardAuthorization 'Authorize payment'
+    }
+
+    external.partners.iseatz.checkoutPage -> external.partners.iseatz.orderbahn 'Create hotel booking'
+    external.partners.iseatz.orderbahn -> external.partners.iseatz.hotelConnector 'Book selected hotel'
+    external.partners.iseatz.hotelConnector -> external.partners.expedia 'Book hotel stay'
+    external.partners.iseatz.hotelConnector <- external.partners.expedia 'Return booked hotel stay'
+    external.partners.iseatz.orderbahn <- external.partners.iseatz.hotelConnector 'Return iSeatz order'
+    external.partners.iseatz.checkoutPage <- external.partners.iseatz.orderbahn 'Return booking confirmation'
+    external.partners.iseatz.checkoutPage -> external.partners.iseatz.confirmationPage 'Render confirmation'
+    external.partners.iseatz.confirmationPage -> cardMember 'Show confirmation'
+
+    external.partners.iseatz.confirmationPage -> external.partners.iseatz.bookingEventPublisher 'Publish booking confirmation event'
+    external.partners.iseatz.bookingEventPublisher -> amex.travel.backendPlatforms.partnerConnectivity.tulips 'Notify booking event'
+    amex.travel.backendPlatforms.partnerConnectivity.tulips -> external.partners.iseatz.orderbahn 'Retrieve full trip information'
+    amex.travel.backendPlatforms.partnerConnectivity.tulips -> amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform 'Pass full trip information'
+    amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform -> amex.travel.backendPlatforms.tlr.tripIngestionQueue 'Publish full trip information'
+    amex.travel.backendPlatforms.tlr.tripIngestionQueue -> amex.travel.backendPlatforms.tlr.repository 'Deliver trip information'
+    amex.travel.backendPlatforms.tlr.repository -> amex.travel.backendPlatforms.tlr.tripStore 'Transform and store trip information'
+    amex.travel.backendPlatforms.tlr.repository -> amex.data.rtf 'Publish transformed trip information'
+    amex.data.rtf -> amex.travel.backendPlatforms.lumi.platform 'Trip information update'
+
+    include
+      cardMember,
+      amex.travel.customerExperience.preBooking.homePage,
+      external.partners.iseatz.resultsPage,
+      external.partners.iseatz.detailsPage,
+      external.partners.iseatz.checkoutPage,
+      amex.apiGateways.ewpB2b,
+      amex.travel.backendPlatforms.tlsProfiles.repository,
+      amex.security.platform.tlsCrypto,
+      amex.payments.platform.merchantOfRecord,
+      amex.payments.platform.cardAuthorization,
+      external.partners.iseatz.orderbahn,
+      external.partners.iseatz.hotelConnector,
+      external.partners.expedia,
+      external.partners.iseatz.confirmationPage,
+      external.partners.iseatz.bookingEventPublisher,
+      amex.travel.backendPlatforms.partnerConnectivity.tulips,
+      amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform,
+      amex.travel.backendPlatforms.tlr.tripIngestionQueue,
+      amex.travel.backendPlatforms.tlr.repository,
+      amex.travel.backendPlatforms.tlr.tripStore,
+      amex.data.rtf,
+      amex.travel.backendPlatforms.lumi.platform
+  }
+
+  dynamic view travel_online_us_car_booking_flow_dynamic {
+    title 'US Car Online Booking Flow / Dynamic'
+    description 'Happy-path sequence for a US online car booking: Amex hosts the Travel Home Page, iSeatz owns results through confirmation, Expedia provides US car supply, and Amex ingests the confirmed trip into TLR and Lumi.'
+    variant sequence
+
+    cardMember -> amex.travel.customerExperience.preBooking.homePage 'Search US car'
+    amex.travel.customerExperience.preBooking.homePage -> external.partners.iseatz.resultsPage 'Transfer search context'
+    external.partners.iseatz.resultsPage -> external.partners.iseatz.carConnector 'Search US car inventory'
+    external.partners.iseatz.carConnector -> external.partners.expedia 'Request car offers'
+    external.partners.iseatz.carConnector <- external.partners.expedia 'Return car availability'
+    external.partners.iseatz.resultsPage -> cardMember 'Display search results'
+
+    cardMember -> external.partners.iseatz.detailsPage 'Select car'
+    external.partners.iseatz.detailsPage -> cardMember 'Display car details'
+    cardMember -> external.partners.iseatz.checkoutPage 'Continue to checkout'
+
+    parallel 'Checkout enterprise calls' {
+      external.partners.iseatz.checkoutPage -> amex.apiGateways.ewpB2b 'Route checkout API calls'
+      amex.apiGateways.ewpB2b -> amex.travel.backendPlatforms.tlsProfiles.repository 'Retrieve traveler profile'
+      amex.apiGateways.ewpB2b -> amex.security.platform.tlsCrypto 'Tokenize sensitive data'
+      amex.apiGateways.ewpB2b -> amex.payments.platform.merchantOfRecord 'Evaluate MOR'
+      amex.apiGateways.ewpB2b -> amex.payments.platform.cardAuthorization 'Authorize payment'
+    }
+
+    external.partners.iseatz.checkoutPage -> external.partners.iseatz.orderbahn 'Create car booking'
+    external.partners.iseatz.orderbahn -> external.partners.iseatz.carConnector 'Book selected car'
+    external.partners.iseatz.carConnector -> external.partners.expedia 'Book car rental'
+    external.partners.iseatz.carConnector <- external.partners.expedia 'Return booked car rental'
+    external.partners.iseatz.orderbahn <- external.partners.iseatz.carConnector 'Return iSeatz order'
+    external.partners.iseatz.checkoutPage <- external.partners.iseatz.orderbahn 'Return booking confirmation'
+    external.partners.iseatz.checkoutPage -> external.partners.iseatz.confirmationPage 'Render confirmation'
+    external.partners.iseatz.confirmationPage -> cardMember 'Show confirmation'
+
+    external.partners.iseatz.confirmationPage -> external.partners.iseatz.bookingEventPublisher 'Publish booking confirmation event'
+    external.partners.iseatz.bookingEventPublisher -> amex.travel.backendPlatforms.partnerConnectivity.tulips 'Notify booking event'
+    amex.travel.backendPlatforms.partnerConnectivity.tulips -> external.partners.iseatz.orderbahn 'Retrieve full trip information'
+    amex.travel.backendPlatforms.partnerConnectivity.tulips -> amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform 'Pass full trip information'
+    amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform -> amex.travel.backendPlatforms.tlr.tripIngestionQueue 'Publish full trip information'
+    amex.travel.backendPlatforms.tlr.tripIngestionQueue -> amex.travel.backendPlatforms.tlr.repository 'Deliver trip information'
+    amex.travel.backendPlatforms.tlr.repository -> amex.travel.backendPlatforms.tlr.tripStore 'Transform and store trip information'
+    amex.travel.backendPlatforms.tlr.repository -> amex.data.rtf 'Publish transformed trip information'
+    amex.data.rtf -> amex.travel.backendPlatforms.lumi.platform 'Trip information update'
+
+    include
+      cardMember,
+      amex.travel.customerExperience.preBooking.homePage,
+      external.partners.iseatz.resultsPage,
+      external.partners.iseatz.detailsPage,
+      external.partners.iseatz.checkoutPage,
+      amex.apiGateways.ewpB2b,
+      amex.travel.backendPlatforms.tlsProfiles.repository,
+      amex.security.platform.tlsCrypto,
+      amex.payments.platform.merchantOfRecord,
+      amex.payments.platform.cardAuthorization,
+      external.partners.iseatz.orderbahn,
+      external.partners.iseatz.carConnector,
+      external.partners.expedia,
+      external.partners.iseatz.confirmationPage,
+      external.partners.iseatz.bookingEventPublisher,
+      amex.travel.backendPlatforms.partnerConnectivity.tulips,
+      amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform,
+      amex.travel.backendPlatforms.tlr.tripIngestionQueue,
+      amex.travel.backendPlatforms.tlr.repository,
+      amex.travel.backendPlatforms.tlr.tripStore,
+      amex.data.rtf,
+      amex.travel.backendPlatforms.lumi.platform
+  }
+}

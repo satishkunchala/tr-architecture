@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="GraphQL">
+  <rect width="256" height="256" rx="32" fill="#ffffff"/>
+  <g fill="none" stroke="#E10098" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M128 34 47 81v94l81 47 81-47V81z"/>
+    <path d="M47 81 128 222 209 81"/>
+    <path d="M47 175h162"/>
+    <path d="M128 34v188"/>
+  </g>
+  <g fill="#E10098">
+    <circle cx="128" cy="34" r="15"/>
+    <circle cx="47" cy="81" r="15"/>
+    <circle cx="47" cy="175" r="15"/>
+    <circle cx="128" cy="222" r="15"/>
+    <circle cx="209" cy="175" r="15"/>
+    <circle cx="209" cy="81" r="15"/>
+  </g>
+</svg>

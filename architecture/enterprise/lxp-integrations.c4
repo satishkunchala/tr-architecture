@@ -1,0 +1,115 @@
+// enterprise/lxp-integrations.c4
+// Amex services exposed to iSeatz LXP through the connector layer shown in the
+// supplied architecture diagrams.
+
+model {
+  extend amex.identity.platform {
+    safeKeyToken = enterpriseComponent 'SafeKey Token' {
+      #enterprise, #security
+    }
+
+    safeKeyAuthentication = enterpriseComponent 'SafeKey Authentication' {
+      #enterprise, #security
+    }
+
+    ewpContext = enterpriseComponent 'EWP Context Validation' {
+      #enterprise, #security
+    }
+
+    jwks = enterpriseComponent 'JWKS' {
+      #enterprise, #security
+      technology 'JSON Web Key Set'
+    }
+  }
+
+  extend amex.loyalty.platform {
+    travelCredits = enterpriseComponent 'Travel Credits' {
+      #enterprise
+    }
+
+    membershipDomain = enterpriseComponent 'Membership Domain' {
+      #enterprise
+    }
+
+    mrPointProcessing = enterpriseComponent 'MR Point Processing' {
+      #enterprise
+    }
+
+    payWithPoints = enterpriseComponent 'Pay With Points' {
+      #enterprise
+      technology 'Hotel, Car, Air'
+    }
+  }
+
+  extend amex.c360.platform {
+    travelerProfile = enterpriseComponent 'Traveler Profile' {
+      #enterprise, #pii
+    }
+
+    primaryTraveler = enterpriseComponent 'Primary Traveler' {
+      #enterprise, #pii
+    }
+
+    companions = enterpriseComponent 'Companions' {
+      #enterprise, #pii
+    }
+
+    unusedTickets = enterpriseComponent 'Unused Tickets' {
+      #enterprise
+    }
+
+    maps = enterpriseComponent 'Maps' {
+      #enterprise
+    }
+  }
+
+  extend amex.payments.platform {
+    cardAuthorization = enterpriseComponent 'Card Authorization' {
+      #enterprise, #pci
+    }
+
+    planItOptions = enterpriseComponent 'Plan It Options' {
+      #enterprise
+    }
+
+    planItAcknowledgement = enterpriseComponent 'Plan It Acknowledgement' {
+      #enterprise
+    }
+
+    merchantOfRecord = enterpriseComponent 'Evaluate MOR' {
+      #enterprise
+      technology 'Merchant of Record evaluation'
+    }
+  }
+
+  extend amex.notifications.platform {
+    notificationEvents = enterpriseComponent 'Notification Events' {
+      #enterprise, #event
+    }
+  }
+
+  extend amex.security.platform {
+    tlsCrypto = enterpriseComponent 'TLS Crypto' {
+      #enterprise, #security
+    }
+
+    kms = enterpriseComponent 'KMS' {
+      #enterprise, #security
+      technology 'Key Management Service'
+    }
+  }
+
+  extend amex.insurance.platform {
+    getQuote = enterpriseComponent 'Insurance Get Quote' {
+      #enterprise
+    }
+
+    createPolicy = enterpriseComponent 'Insurance Create Policy' {
+      #enterprise
+    }
+
+    inquiryResults = enterpriseComponent 'Insurance Inquiry Results' {
+      #enterprise
+    }
+  }
+}

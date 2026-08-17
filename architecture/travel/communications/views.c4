@@ -1,0 +1,11 @@
+// travel/communications/views.c4
+
+views {
+  view travel_communications_context {
+    title 'Travel Communications'
+    include amex.travel.communications.pbcc.platform
+    include amex.travel.backendPlatforms.tlr.repository
+    include amex.notifications.platform
+    autoLayout TopBottom 150 110
+  }
+}

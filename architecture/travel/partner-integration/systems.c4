@@ -1,0 +1,5 @@
+// travel/partner-integration/systems.c4
+// Retained only as a migration note. Online Travel partner connectivity is now
+// modeled as Travel Booking Platform relationships plus the backend TuLIPS
+// partner connectivity layer. No standalone Travel Partner Integration Platform
+// is modeled.

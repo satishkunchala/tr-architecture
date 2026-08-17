@@ -1,0 +1,23 @@
+// travel/capabilities/membership-domain-api/systems.c4
+// Reusable Travel API capability. Keep implementation details in this folder as
+// the product ownership and dependency map becomes clearer.
+
+model {
+  extend amex.travel.capabilities.membershipDomainApi {
+    api = api 'Membership Domain API' {
+      #travel, #pii, #tier1
+      description 'Travel-owned GraphQL layer that provides customer demographic and membership context to internal and external clients.'
+      technology 'GraphQL'
+      style {
+        icon @/technology/graphql.svg
+        iconPosition top
+        iconSize xl
+      }
+      metadata {
+        owner 'Travel Capabilities'
+        productArea 'Membership Domain'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+}

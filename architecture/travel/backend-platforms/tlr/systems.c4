@@ -1,0 +1,40 @@
+// travel/backend-platforms/tlr/systems.c4
+
+model {
+  extend amex.travel.backendPlatforms.tlr {
+    repository = travelSystem 'TLR' {
+      #travel, #data, #tier1, #pii
+      description 'Travel & Lifestyle Repository. System of record for trips within the TLS boundary; transforms and stores trip information.'
+      metadata {
+        owner 'Backend Platforms'
+        productArea 'Travel & Lifestyle Repository'
+        criticality 'Tier-1'
+        dataClassification 'Confidential'
+        lifecycle 'Strategic'
+      }
+    }
+
+    tripIngestionQueue = messageQueue 'TLR Trip Ingestion Queue' {
+      #travel, #data, #event
+      description 'Message queue used by Trips Ingestion to deliver full trip information into TLR.'
+      technology 'Message Queue'
+      metadata {
+        owner 'Backend Platforms'
+        productArea 'Travel & Lifestyle Repository'
+        lifecycle 'Strategic'
+      }
+    }
+
+    tripStore = database 'TLR Trip Store' {
+      #travel, #data, #pii, #tier1
+      description 'TLR persistence store for transformed trip information. Specific database technology and physical schema are TBD.'
+      technology 'Database TBD'
+      metadata {
+        owner 'Backend Platforms'
+        productArea 'Travel & Lifestyle Repository'
+        dataClassification 'Confidential'
+        lifecycle 'TBD'
+      }
+    }
+  }
+}

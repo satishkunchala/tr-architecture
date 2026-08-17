@@ -1,0 +1,15 @@
+// travel/backend-platforms/relationships.c4
+
+model {
+  amex.travel.backendPlatforms.partnerConnectivity.tulips .restApi external.partners.iseatz.orderbahn 'Retrieve full trip info' {
+    technology 'Partner API'
+  }
+
+  amex.travel.backendPlatforms.partnerConnectivity.tulips .restApi amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform 'Pass full trip info' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.backendPlatforms.dataIngestion.tripsIngestion.platform .queue amex.travel.backendPlatforms.tlr.tripIngestionQueue 'Publish full trip information' {
+    technology 'Message Queue'
+  }
+}

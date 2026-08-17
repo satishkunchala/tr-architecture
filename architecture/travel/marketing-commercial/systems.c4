@@ -1,0 +1,23 @@
+// travel/marketing-commercial/systems.c4
+
+model {
+  extend amex.travel.marketingCommercial {
+    maps = travelSystem 'MAPS' {
+      #travel
+      description 'Marketing application platform supporting Travel offers and programs.'
+      metadata {
+        owner 'Marketing / Commercial Platforms'
+        lifecycle 'Strategic'
+      }
+    }
+
+    cms = travelSystem 'Contract Management System (CMS)' {
+      #travel
+      description 'Travel contract management system. Named explicitly to avoid confusion with content management systems.'
+      metadata {
+        owner 'Marketing / Commercial Platforms'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+// views/travel-landscape.c4
+// Level 1 and 2 Travel views. Capability views stay coarse; application
+// landscape views reveal systems but not internal components.
+
+views {
+  view travel_domain_context {
+    title 'Travel Domain Context'
+    description 'Travel as an encompassing business domain and its enterprise dependencies.'
+    include amex.travel
+    include amex.apiGateways
+    include amex.identity
+    include amex.c360
+    include amex.loyalty
+    include amex.payments
+    include amex.insurance
+    include amex.notifications
+    include amex.personalization
+    include amex.security
+    include amex.chat
+    include amex.dining
+    autoLayout LeftRight 180 140
+  }
+
+  view travel_application_landscape of amex.travel {
+    title 'Travel Application Landscape'
+    include amex.travel.customerExperience.*
+    include amex.travel.selfServicing.*
+    include amex.travel.agentServicing.*
+    include amex.travel.communications.*
+    include amex.travel.capabilities.*
+    include amex.travel.backendPlatforms.*
+    include amex.travel.marketingCommercial.*
+    include amex.travel.backOffice.*
+    exclude element.kind = api
+    exclude element.kind = service
+    exclude element.kind = microservice
+    exclude element.kind = database
+    exclude element.kind = cache
+    exclude element.kind = eventProducer
+    exclude element.kind = eventConsumer
+    autoLayout TopBottom 150 110
+  }
+}

@@ -1,0 +1,97 @@
+// travel/domain.c4
+// Travel is organized around the customer journey rather than delivery ARTs.
+// ART/team ownership belongs in metadata on systems, while these boundaries
+// represent stable architecture/product capabilities.
+
+model {
+  extend amex.travel {
+    customerExperience = capability 'Customer Experience' {
+      #travel, #customer-facing
+
+      inspiration = capability 'Inspiration' {
+        #travel, #customer-facing
+      }
+
+      preBooking = capability 'Pre Booking' {
+        #travel, #customer-facing
+      }
+
+      bookingExperience = capability 'Booking Experience' {
+        #travel, #customer-facing, #tier1
+      }
+    }
+
+    selfServicing = capability 'Self Servicing' {
+      #travel, #customer-facing
+
+      pbss = capability 'Post Booking Self Servicing (PBSS)' {
+        #travel, #customer-facing
+      }
+    }
+
+    agentServicing = capability 'Agent Servicing' {
+      #travel, #agent-facing
+
+      agentTools = capability 'Agent Tools' {
+        #travel, #agent-facing
+      }
+    }
+
+    communications = capability 'Communications' {
+      #travel
+
+      pbcc = capability 'Post Booking Customer Communications (PBCC)' {
+        #travel
+      }
+    }
+
+    capabilities = capability 'Capabilities' {
+      #travel
+      description 'Travel-owned reusable systems and APIs that support the domain but are not part of the core booking flow.'
+
+      membershipDomainApi = capability 'Membership Domain API' {
+        #travel, #pii
+      }
+
+      travelNotifications = capability 'Travel Notifications' {
+        #travel, #customer-facing
+      }
+    }
+
+    backendPlatforms = capability 'Backend Platforms' {
+      #travel, #tier1
+
+      booking = capability 'Travel Booking Platform' {
+        #travel, #tier1, #pii, #pci
+      }
+
+      dataIngestion = capability 'Data Ingestion' {
+        #travel, #data
+      }
+
+      partnerConnectivity = capability 'Partner Connectivity Layer' {
+        #travel, #partner-integration
+      }
+
+      tlr = capability 'Travel & Lifestyle Repository (TLR)' {
+        #travel, #data, #tier1
+      }
+
+      tlsProfiles = capability 'TLS Profiles' {
+        #travel, #pii, #tier1
+      }
+
+      lumi = capability 'Lumi' {
+        #travel, #data
+      }
+    }
+
+    marketingCommercial = capability 'Marketing / Commercial Platforms' {
+      #travel
+    }
+
+    backOffice = capability 'Back Office' {
+      #travel, #back-office
+    }
+  }
+}

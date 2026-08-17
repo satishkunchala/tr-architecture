@@ -1,0 +1,18 @@
+// enterprise/identity/identity.c4
+
+model {
+  extend amex.identity.platform {
+    authz = enterpriseComponent 'AuthN / AuthZ Service' {
+      #enterprise
+      technology 'OAuth2 / OIDC'
+    }
+
+    userStore = enterpriseComponent 'Identity Store' {
+      #enterprise, #pii
+      technology 'RDBMS'
+      style {
+        shape cylinder
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+// travel/backend-platforms/data-ingestion/trips-ingestion/systems.c4
+
+model {
+  extend amex.travel.backendPlatforms.dataIngestion.tripsIngestion {
+    platform = travelSystem 'Trips Ingestion' {
+      #travel, #data, #tier1
+      technology 'Trip ingestion and normalization'
+      metadata {
+        owner 'Data Ingestion'
+        productArea 'Trips Ingestion'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+}

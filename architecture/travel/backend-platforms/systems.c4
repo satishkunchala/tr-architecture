@@ -1,0 +1,16 @@
+// travel/backend-platforms/systems.c4
+// Backend Platforms is a logical umbrella. Each product/platform team owns its
+// own folder below this directory.
+
+model {
+  extend amex.travel.backendPlatforms.dataIngestion {
+    platform = travelSystem 'Data Ingestion Platform' {
+      #travel, #data, #tier1
+      metadata {
+        owner 'Backend Platforms'
+        productArea 'Data Ingestion'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+}

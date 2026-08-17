@@ -1,0 +1,15 @@
+// travel/views/travel-journey-landscape.c4
+
+views {
+  view travel_journey_landscape of amex.travel {
+    title 'Travel Journey Landscape'
+    include amex.travel.customerExperience
+    include amex.travel.selfServicing
+    include amex.travel.agentServicing
+    include amex.travel.communications
+    include amex.travel.backendPlatforms
+    include amex.travel.marketingCommercial
+    include amex.travel.backOffice
+    autoLayout TopBottom 150 120
+  }
+}

@@ -1,0 +1,31 @@
+// travel/backend-platforms/tlr/relationships.c4
+
+model {
+  amex.travel.backendPlatforms.tlr.tripIngestionQueue .event amex.travel.backendPlatforms.tlr.repository 'Deliver trip information' {
+    technology 'Message Queue'
+  }
+
+  amex.travel.backendPlatforms.tlr.repository .database amex.travel.backendPlatforms.tlr.tripStore 'Transform and store trip information' {
+    technology 'Database TBD'
+  }
+
+  amex.travel.backendPlatforms.tlr.repository .event amex.data.rtf 'Publish transformed trip information' {
+    technology 'RTF message queue'
+  }
+
+  amex.data.rtf .event amex.travel.backendPlatforms.lumi.platform 'Trip information update' {
+    technology 'RTF subscription'
+  }
+
+  amex.data.rtf .event amex.travel.selfServicing.pbss.platform 'Trip information update' {
+    technology 'RTF subscription'
+  }
+
+  amex.data.rtf .event amex.travel.communications.pbcc.platform 'Trip information update' {
+    technology 'RTF subscription'
+  }
+
+  amex.travel.backendPlatforms.tlr.repository .batch amex.travel.backOffice.reporting 'Feed travel reporting' {
+    technology 'Batch / reporting extract'
+  }
+}

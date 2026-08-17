@@ -1,0 +1,61 @@
+// travel/customer-experience/systems.c4
+
+model {
+  extend amex.travel.customerExperience.inspiration {
+    experience = travelApplication 'Inspiration Experience' {
+      #travel, #customer-facing
+      technology 'Web / mobile experience'
+      metadata {
+        owner 'Customer Experience'
+        productArea 'Inspiration'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+
+  extend amex.travel.customerExperience.preBooking {
+    homePage = webApplication 'Travel Home Page' {
+      #travel, #customer-facing, #tier1
+      technology 'React / Web'
+      metadata {
+        owner 'Customer Experience'
+        productArea 'Pre Booking'
+        criticality 'Tier-1'
+        lifecycle 'Strategic'
+      }
+    }
+
+    mobileApp = mobileApplication 'Travel Mobile App' {
+      #travel, #customer-facing, #tier1
+      technology 'Mobile app'
+      metadata {
+        owner 'Customer Experience'
+        productArea 'Pre Booking'
+        criticality 'Tier-1'
+        lifecycle 'Strategic'
+      }
+    }
+
+    searchEntry = travelApplication 'Travel Search Entry' {
+      #travel, #customer-facing
+      technology 'Web / API'
+    }
+  }
+
+  extend amex.travel.customerExperience.bookingExperience {
+    partnerBookingEntry = travelApplication 'Partner Booking Entry' {
+      #travel, #customer-facing, #tier1
+      description 'Amex-owned booking entry/handoff surface for partner-owned booking journeys.'
+    }
+
+    vacationRentalBooking = travelApplication 'Vacation Rental Booking Experience' {
+      #travel, #customer-facing, #tier1
+      description 'Amex-owned end-to-end vacation rental booking experience.'
+      metadata {
+        owner 'Customer Experience'
+        productArea 'Vacation Rentals'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+}

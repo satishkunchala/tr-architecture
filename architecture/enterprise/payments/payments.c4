@@ -1,0 +1,18 @@
+// enterprise/payments/payments.c4
+
+model {
+  extend amex.payments.platform {
+    authorizationApi = enterpriseComponent 'Authorization API' {
+      #enterprise, #pci
+      technology 'REST / JSON'
+    }
+
+    tokenVault = enterpriseComponent 'Payment Token Vault' {
+      #enterprise, #pci
+      technology 'Tokenization service'
+      style {
+        shape storage
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+// travel/backend-platforms/partner-connectivity/systems.c4
+
+model {
+  extend amex.travel.backendPlatforms.partnerConnectivity {
+    tulips = travelSystem 'TuLIPS' {
+      #travel, #partner-integration, #tier1
+      description 'Travel partner connectivity layer used to retrieve and exchange full trip information with partner/integrator platforms.'
+      metadata {
+        owner 'Backend Platforms'
+        productArea 'Partner Connectivity Layer'
+        criticality 'Tier-1'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+}

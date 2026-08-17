@@ -1,0 +1,14 @@
+// enterprise/insurance/insurance.c4
+
+model {
+  extend amex.insurance {
+    platform = enterpriseSystem 'Insurance Platform' {
+      #enterprise, #tier2
+      metadata {
+        owner 'Insurance'
+        criticality 'Tier-2'
+        lifecycle 'Strategic'
+      }
+    }
+  }
+}

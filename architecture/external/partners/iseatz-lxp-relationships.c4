@@ -1,0 +1,164 @@
+// external/partners/iseatz-lxp-relationships.c4
+// Relationships derived from the provided LXP architecture/integration diagrams.
+
+model {
+  external.partners.iseatz.frontEnd .http external.partners.iseatz.edge 'Enter LXP experience' {
+    technology 'HTTPS via AWS WAF / Cloudflare'
+  }
+
+  external.partners.iseatz.uiLayer .http external.partners.iseatz.frontEnd 'Serve LXP shell' {
+    technology 'CMS / SPA assets'
+  }
+
+  external.partners.iseatz.edge .http external.partners.iseatz.gibraltar 'Route request' {
+    technology 'HTTPS'
+  }
+
+  external.partners.iseatz.gibraltar .database external.partners.iseatz.authDb 'Store authentication state' {
+    technology 'Encrypted database'
+  }
+
+  external.partners.iseatz.gibraltar .database external.partners.iseatz.mapsDb 'Read maps data' {
+    technology 'Cache/database lookup'
+  }
+
+  external.partners.iseatz.gibraltar .database external.partners.iseatz.tokenCache 'Read token cache' {
+    technology 'Cache lookup'
+  }
+
+  external.partners.iseatz.gibraltar .database external.partners.iseatz.profileCache 'Read profile cache' {
+    technology 'Cache lookup'
+  }
+
+  external.partners.iseatz.gibraltar .restApi external.partners.iseatz.orderbahn 'Shop, book, retrieve, cancel' {
+    technology 'Internal API'
+  }
+
+  external.partners.iseatz.orderbahn .database external.partners.iseatz.ordersDb 'Persist orders' {
+    technology 'Encrypted database'
+  }
+
+  external.partners.iseatz.orderbahn .event external.partners.iseatz.internalEventNotifications 'Publish order events' {
+    technology 'Queue'
+  }
+
+  external.partners.iseatz.internalEventNotifications .event external.partners.iseatz.clientEventSinks 'Consume client events' {
+    technology 'Webhooks / SQS / SNS subscription'
+  }
+
+  external.partners.iseatz.orderbahn .restApi external.partners.iseatz.supplierConnectors 'Shop and book supplier products' {
+    technology 'Internal connector API'
+  }
+
+  external.partners.iseatz.orderManagement .database external.partners.iseatz.bookingsDb 'Persist booking records' {
+    technology 'Bookings database'
+  }
+
+  external.partners.iseatz.bookingsDb .batch external.partners.iseatz.reportingLayer 'Feed reporting layer' {
+    technology 'ETL'
+  }
+
+  external.partners.iseatz.reportingLayer .database external.partners.iseatz.reportingDb 'Load reporting data' {
+    technology 'ETL'
+  }
+
+  external.partners.iseatz.reportingLayer .batch external.partners.iseatz.clientConnections 'Publish reports and points/earn data' {
+    technology 'Reporting services'
+  }
+
+  external.partners.iseatz.orderbahn .restApi external.partners.iseatz.amexConnectors 'Burn points, authorize payments, MOR, Plan It' {
+    technology 'Amex connector API'
+  }
+
+  external.partners.iseatz.amexConnectors .restApi amex.apiGateways.ewpB2b 'Route B2B Amex API calls' {
+    technology 'EWP B2B'
+  }
+
+  external.partners.iseatz.amexConnectors .restApi amex.apiGateways.apigeeLegacyB2b 'Route legacy B2B Amex API calls' {
+    technology 'Apigee'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.identity.platform.safeKeyToken 'Request SafeKey token' {
+    technology 'HTTPS / token API'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.identity.platform.safeKeyAuthentication 'Authenticate SafeKey session' {
+    technology 'HTTPS / authentication API'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.identity.platform.ewpContext 'Validate EWP context' {
+    technology 'HTTPS'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.identity.platform.jwks 'Fetch signing keys' {
+    technology 'JWKS'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.loyalty.platform.travelCredits 'Use travel credits' {
+    technology 'REST / JSON'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.loyalty.platform.membershipDomain 'Retrieve card member profile' {
+    technology 'REST / JSON'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.c360.platform.travelerProfile 'Retrieve traveler profile' {
+    technology 'REST / JSON'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.c360.platform.unusedTickets 'Retrieve unused tickets' {
+    technology 'REST / JSON'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.payments.platform.cardAuthorization 'Authorize card payment' {
+    technology 'REST / JSON / PCI controls'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.security.platform.tlsCrypto 'Tokenize payment data' {
+    technology 'TLS crypto'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.payments.platform.planItOptions 'Retrieve Plan It options' {
+    technology 'REST / JSON'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.payments.platform.planItAcknowledgement 'Acknowledge Plan It selection' {
+    technology 'REST / JSON'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.payments.platform.merchantOfRecord 'Evaluate merchant of record' {
+    technology 'REST / JSON'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.loyalty.platform.payWithPoints 'Process MR points' {
+    technology 'REST / JSON'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.c360.platform.maps 'Retrieve maps' {
+    technology 'REST / JSON'
+  }
+
+  external.partners.iseatz.amexConnectors .event amex.notifications.platform.notificationEvents 'Publish notification event' {
+    technology 'Event / REST'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.security.platform.kms 'Manage encryption keys' {
+    technology 'KMS API'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.insurance.platform.getQuote 'Get insurance quote' {
+    technology 'REST / JSON'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.insurance.platform.createPolicy 'Create insurance policy' {
+    technology 'REST / JSON'
+  }
+
+  amex.apiGateways.ewpB2b .restApi amex.insurance.platform.inquiryResults 'Retrieve insurance inquiry results' {
+    technology 'REST / JSON'
+  }
+
+  external.partners.iseatz.amexConnectors .restApi external.partners.iseatz.clientConnections 'Send client connector telemetry' {
+    technology 'Connector telemetry'
+  }
+}

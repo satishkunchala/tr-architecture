@@ -1,0 +1,102 @@
+// specification/relationships.c4
+// Relationship title convention:
+//   "Business action / event name"
+//   technology "Protocol / mechanism"
+// This keeps diagram labels business-readable while preserving technical detail.
+
+specification {
+  relationship http {
+    title 'HTTP'
+    notation 'Synchronous HTTP'
+    line solid
+    color gray
+  }
+
+  relationship restApi {
+    title 'REST API'
+    notation 'REST / JSON'
+    line solid
+    color gray
+  }
+
+  relationship graphql {
+    title 'GraphQL'
+    line solid
+    color gray
+  }
+
+  relationship grpc {
+    title 'gRPC'
+    line solid
+    color gray
+  }
+
+  relationship async {
+    #async
+    title 'Async'
+    notation 'Asynchronous message'
+    line dashed
+    color gray
+  }
+
+  relationship event {
+    #event, #async
+    title 'Event'
+    notation 'Event stream'
+    line dotted
+    color amber
+    multiple true
+  }
+
+  relationship stream {
+    #event, #async
+    title 'Stream'
+    line dotted
+    color amber
+  }
+
+  relationship queue {
+    #async
+    title 'Queue'
+    line dashed
+    color gray
+  }
+
+  relationship batch {
+    #batch
+    title 'Batch'
+    line dashed
+    color gray
+  }
+
+  relationship fileTransfer {
+    #batch
+    title 'File Transfer'
+    line dashed
+    color gray
+  }
+
+  relationship database {
+    title 'Database access'
+    line solid
+    color gray
+  }
+
+  relationship websocket {
+    title 'WebSocket'
+    line solid
+    color gray
+  }
+
+  relationship sftp {
+    title 'SFTP'
+    line dashed
+    color gray
+  }
+
+  relationship vendorIntegration {
+    title 'Vendor integration'
+    line solid
+    color gray
+  }
+}

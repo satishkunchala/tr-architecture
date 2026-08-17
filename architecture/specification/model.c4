@@ -1,0 +1,104 @@
+// specification/model.c4
+// This file defines only enterprise anchor boundaries. Domain/application teams
+// extend these anchors from their own folders so the model scales without a
+// single giant file.
+
+model {
+  cardMember = customerActor 'Card Member' {
+    #customer-facing
+    description 'American Express Travel customer booking a US air itinerary online.'
+  }
+
+  amexAgent = customerActor 'Amex Agent' {
+    #agent-facing
+    description 'American Express Travel agent using assisted servicing and booking tools.'
+  }
+
+  amex = organization 'American Express' {
+    #enterprise
+    description 'Enterprise boundary. Use nested domains for ownership boundaries; do not place application components directly in this level.'
+
+    travel = domain 'Travel' {
+      #travel, #domain
+      description 'Travel business domain and bounded context for customer shopping, booking, servicing, partner integration, and reconciliation capabilities.'
+      metadata {
+        owner 'Travel Enterprise Architecture'
+        criticality 'Tier-1'
+        lifecycle 'Strategic'
+      }
+    }
+
+    loyalty = domain 'Loyalty' {
+      #enterprise, #domain
+      description 'Enterprise loyalty domain consumed by Travel for rewards, benefits, and membership data.'
+    }
+
+    insurance = domain 'Insurance' {
+      #enterprise, #domain
+      description 'Enterprise insurance domain for travel protection products and servicing integrations.'
+    }
+
+    identity = domain 'Enterprise Identity' {
+      #enterprise, #domain
+      description 'Shared identity and access management domain.'
+    }
+
+    c360 = domain 'Customer 360 / C360' {
+      #enterprise, #domain
+      description 'Enterprise customer profile and insight domain.'
+    }
+
+    chat = domain 'Enterprise Chat' {
+      #enterprise, #domain
+      description 'Enterprise conversational servicing and chat platforms.'
+    }
+
+    dining = domain 'Dining / Resy' {
+      #enterprise, #domain
+      description 'American Express owned dining and reservation capabilities, including Resy.'
+    }
+
+    payments = domain 'Payments' {
+      #enterprise, #domain
+      description 'Enterprise payment authorization, capture, settlement, and tokenization platforms.'
+    }
+
+    notifications = domain 'Notifications' {
+      #enterprise, #domain
+      description 'Enterprise notification orchestration and delivery platforms.'
+    }
+
+    personalization = domain 'Enterprise Personalization' {
+      #enterprise, #domain
+      description 'Enterprise personalization domain that consumes travel context for tailored customer experiences.'
+    }
+
+    data = domain 'Enterprise Data Platforms' {
+      #enterprise, #domain
+      description 'Enterprise streaming, warehouse, analytics, and reporting platforms.'
+    }
+
+    security = domain 'Enterprise Security' {
+      #enterprise, #domain
+      description 'Enterprise security, cryptography, token, and key management capabilities.'
+    }
+
+    apiGateways = domain 'Amex API Gateways' {
+      #enterprise, #domain
+      description 'Enterprise B2B API gateway boundary for partner-originated API traffic into American Express.'
+    }
+  }
+
+  external = organization 'External Ecosystem' {
+    #external
+    description 'Boundary for third-party travel partners and technology vendors. Partners and vendors are intentionally modeled as separate categories.'
+  }
+
+  cardMember .http amex 'Uses American Express Travel' {
+    technology 'Web / mobile'
+  }
+
+  amexAgent .http amex 'Uses Amex Travel agent tools' {
+    technology 'Agent desktop / web'
+  }
+}

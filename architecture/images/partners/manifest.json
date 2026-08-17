@@ -1,0 +1,89 @@
+{
+  "generatedBy": "scripts/fetch-partner-logos.mjs",
+  "logos": [
+    {
+      "company": "iSeatz",
+      "domain": "iseatz.com",
+      "source": "https://www.google.com/s2/favicons?domain=iseatz.com&sz=256",
+      "file": "partners/iseatz.png"
+    },
+    {
+      "company": "Expedia Group",
+      "domain": "expediagroup.com",
+      "source": "https://cdn.simpleicons.org/expedia",
+      "file": "partners/expedia-group.svg"
+    },
+    {
+      "company": "Agoda",
+      "domain": "agoda.com",
+      "source": "https://www.google.com/s2/favicons?domain=agoda.com&sz=256",
+      "file": "partners/agoda.png"
+    },
+    {
+      "company": "CarTrawler",
+      "domain": "cartrawler.com",
+      "source": "https://www.google.com/s2/favicons?domain=cartrawler.com&sz=256",
+      "file": "partners/cartrawler.png"
+    },
+    {
+      "company": "Spotnana",
+      "domain": "spotnana.com",
+      "source": "https://www.google.com/s2/favicons?domain=spotnana.com&sz=256",
+      "file": "partners/spotnana.png"
+    },
+    {
+      "company": "Sabre",
+      "domain": "sabre.com",
+      "source": "https://www.google.com/s2/favicons?domain=sabre.com&sz=256",
+      "file": "partners/sabre.png"
+    },
+    {
+      "company": "Amadeus",
+      "domain": "amadeus.com",
+      "source": "https://www.google.com/s2/favicons?domain=amadeus.com&sz=256",
+      "file": "partners/amadeus.png"
+    },
+    {
+      "company": "Vervotech",
+      "domain": "vervotech.com",
+      "source": "https://www.google.com/s2/favicons?domain=vervotech.com&sz=256",
+      "file": "partners/vervotech.png"
+    },
+    {
+      "company": "DerbySoft",
+      "domain": "derbysoft.com",
+      "source": "https://www.google.com/s2/favicons?domain=derbysoft.com&sz=256",
+      "file": "partners/derbysoft.png"
+    },
+    {
+      "company": "GetYourGuide",
+      "domain": "getyourguide.com",
+      "source": "https://www.google.com/s2/favicons?domain=getyourguide.com&sz=256",
+      "file": "partners/getyourguide.png"
+    },
+    {
+      "company": "Apple",
+      "domain": "apple.com",
+      "source": "https://cdn.simpleicons.org/apple",
+      "file": "partners/apple.svg"
+    },
+    {
+      "company": "Arrivia",
+      "domain": "arrivia.com",
+      "source": "https://www.google.com/s2/favicons?domain=arrivia.com&sz=256",
+      "file": "partners/arrivia.png"
+    },
+    {
+      "company": "BookingPal",
+      "domain": "bookingpal.com",
+      "source": "https://bookingpal.com/wp-content/themes/bookingpal-theme/assets/images/bookingpal-logo-179px.png.webp",
+      "file": "partners/bookingpal.webp"
+    },
+    {
+      "company": "Airbnb",
+      "domain": "airbnb.com",
+      "source": "https://cdn.simpleicons.org/airbnb",
+      "file": "partners/airbnb.svg"
+    }
+  ]
+}

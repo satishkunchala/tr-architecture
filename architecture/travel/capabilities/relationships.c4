@@ -1,0 +1,84 @@
+// travel/capabilities/relationships.c4
+// Coarse enterprise dependencies for reusable Travel capabilities.
+
+model {
+  external .graphql amex.apiGateways.ewpB2b 'Route external client demographic queries' {
+    technology 'GraphQL over HTTPS'
+  }
+
+  amex.apiGateways.ewpB2b .graphql amex.travel.capabilities.membershipDomainApi.api 'Forward Membership Domain queries' {
+    technology 'GraphQL'
+  }
+
+  amex.travel.capabilities.membershipDomainApi.api .restApi amex.c360.platform.c360Api 'Retrieve customer demographics' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.capabilities.membershipDomainApi.api .restApi amex.c360.platform.mycaMemberApi 'Retrieve card member context' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.capabilities.membershipDomainApi.api .restApi amex.loyalty.platform.loyaltyAccountDetailsApi 'Retrieve loyalty account details' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.capabilities.membershipDomainApi.api .restApi amex.payments.platform.planItEligibilityApi 'Evaluate Plan It eligibility' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.capabilities.membershipDomainApi.api .restApi amex.loyalty.platform.globalBenefitsApi 'Retrieve global benefits' {
+    technology 'REST / JSON'
+  }
+
+  external.vendors.oag .http amex.apiGateways.ewpB2b 'Send flight event webhook' {
+    technology 'HTTPS webhook'
+  }
+
+  amex.apiGateways.ewpB2b .http amex.travel.capabilities.travelNotifications.inboundFlightWebhook 'Forward flight event webhook' {
+    technology 'HTTPS'
+  }
+
+  amex.travel.capabilities.travelNotifications.inboundFlightWebhook .database amex.travel.capabilities.travelNotifications.flightEventStore 'Store flight event information' {
+    technology 'Database write'
+  }
+
+  amex.travel.capabilities.travelNotifications.inboundFlightWebhook .event amex.travel.capabilities.travelNotifications.tripMatcher 'Trigger trip matching' {
+    technology 'Internal event'
+  }
+
+  amex.travel.capabilities.travelNotifications.tripMatcher .restApi amex.travel.backendPlatforms.tlr.repository 'Retrieve trip details' {
+    technology 'REST / JSON'
+  }
+
+  amex.travel.capabilities.travelNotifications.tripMatcher .database amex.travel.capabilities.travelNotifications.flightEventStore 'Read flight events for matching' {
+    technology 'Database read'
+  }
+
+  amex.travel.capabilities.travelNotifications.tripMatcher .event amex.travel.capabilities.travelNotifications.notificationProcessor 'Send matched flight event' {
+    technology 'Internal event'
+  }
+
+  amex.travel.capabilities.travelNotifications.notificationProcessor .database amex.travel.capabilities.travelNotifications.flightEventStore 'Update notification processing status' {
+    technology 'Database update'
+  }
+
+  amex.travel.capabilities.travelNotifications.notificationProcessor .event amex.travel.capabilities.travelNotifications.rtfPublisher 'Prepare travel notification event' {
+    technology 'Internal event'
+  }
+
+  amex.travel.capabilities.travelNotifications.rtfPublisher .event amex.data.rtf 'Publish processed flight notification' {
+    technology 'RTF message queue'
+  }
+
+  amex.personalization.platform .restApi amex.travel.capabilities.travelNotifications.flightStatusApi 'Retrieve flight status' {
+    technology 'REST / JSON / /flight/status'
+  }
+
+  amex.travel.capabilities.travelNotifications.flightStatusApi .database amex.travel.capabilities.travelNotifications.flightEventStore 'Read latest flight status' {
+    technology 'Database read'
+  }
+
+  amex.travel.capabilities.travelNotifications.flightStatusApi .restApi amex.travel.backendPlatforms.tlr.repository 'Retrieve trip context' {
+    technology 'REST / JSON'
+  }
+}
